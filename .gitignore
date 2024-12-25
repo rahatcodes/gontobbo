@@ -33,7 +33,7 @@ Icon?
 Desktop.ini
 
 # Maven specific files (if applicable)
-target/
+target/*
 out/
 pom.xml.tag
 pom.xml.releaseBackup
