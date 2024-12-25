@@ -103,7 +103,7 @@ public class DBConnection {
         return connection;
     }
     
-    // authenticate admin
+    // authenticate user
     public boolean authenticateUser(String userType, String username, String password) {
         boolean isAuthenticated = false;
         DBConnection db = new DBConnection();
@@ -125,6 +125,31 @@ public class DBConnection {
         }        
         db.disconnect();
         return isAuthenticated;
+    }
+    
+    
+    public int getNewTripId() {
+        int tripId = 0;
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        try {
+            String query = "SELECT id FROM trip ORDER BY id DESC LIMIT 1";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            
+            try(ResultSet rs = pstmt.executeQuery()) {
+                tripId = rs.getInt("id");
+            }
+            
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        
+        db.disconnect();
+        
+        return tripId;
     }
     
     public void getAll(Connection connection, String tableName) throws SQLException {
