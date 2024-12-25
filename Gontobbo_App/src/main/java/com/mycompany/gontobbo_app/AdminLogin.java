@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.gontobbo_app;
+import DBConnection.DBConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 
@@ -57,22 +63,23 @@ public class AdminLogin extends javax.swing.JFrame {
         kGradientPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jTextField1.setOpaque(false);
         kGradientPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 80, -1, -1));
 
         jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jTextField2.setOpaque(false);
         kGradientPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 80, -1, -1));
 
         adminPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        adminPassword.setOpaque(false);
+        adminPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminPasswordActionPerformed(evt);
+            }
+        });
         kGradientPanel2.add(adminPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 310, 40));
 
         adminUname.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         adminUname.setForeground(new java.awt.Color(51, 51, 51));
         adminUname.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         adminUname.setCaretColor(new java.awt.Color(0, 153, 153));
-        adminUname.setOpaque(false);
         kGradientPanel2.add(adminUname, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 310, 40));
 
         jLabel1.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 12)); // NOI18N
@@ -129,7 +136,6 @@ public class AdminLogin extends javax.swing.JFrame {
         goBack.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         goBack.setkHoverStartColor(new java.awt.Color(102, 153, 255));
         goBack.setkStartColor(new java.awt.Color(0, 204, 204));
-        goBack.setOpaque(false);
         goBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackActionPerformed(evt);
@@ -150,10 +156,30 @@ public class AdminLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_goBackActionPerformed
 
     private void adminLoginBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminLoginBTNActionPerformed
-        // TODO add your handling code here:
-        AdminDboard adminDboard = new AdminDboard();
-        adminDboard.setVisible(true);
+        String username = adminUname.getText();
+        String password = adminPassword.getText();
+        
+        if(username.length() == 0 || password.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Enter both username and password", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } 
+
+        DBConnection con = new DBConnection();
+        boolean isAuthenticated = con.authenticateUser("admin", username, password);
+        
+        if(isAuthenticated) {
+            AdminDboard adminDboard = new AdminDboard();
+            adminDboard.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid username or password", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_adminLoginBTNActionPerformed
+
+    private void adminPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adminPasswordActionPerformed
 
     /**
      * @param args the command line arguments
