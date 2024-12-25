@@ -76,7 +76,7 @@ INSERT INTO "seattype" ("id","name","created_at","updated_at") VALUES (1,'Ac','2
 INSERT INTO "tripcategory" ("id","name","created_at","updated_at") VALUES (1,'Bus','2024-12-14 08:33:44.480863','2024-12-14 08:33:44.480863'),
  (2,'Train','2024-12-14 08:33:48.712301','2024-12-14 08:33:48.712301');
 INSERT INTO "admin" ("id","password","created_at","updated_at","is_admin","username") VALUES (1,'Ab@12345','2024-12-14 08:38:35.507473','2024-12-14 08:38:35.507473',1,'admin');
-INSERT INTO "receptionist" ("id","password","created_at","updated_at","is_admin","username") VALUES (1,'Ab@12345','2024-12-14 08:39:06.156629','2024-12-14 08:39:06.156629',0,'Rahat');
+INSERT INTO "receptionist" ("id","password","created_at","updated_at","is_admin","username") VALUES (1,'Ab@12345','2024-12-14 08:39:06.156629','2024-12-14 08:39:06.156629',0,'user');
 CREATE INDEX IF NOT EXISTS "trip_seat_type_id_33311535" ON "trip" (
 	"seat_type_id"
 );
