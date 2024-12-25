@@ -72,11 +72,6 @@ public class UserLogin extends javax.swing.JFrame {
         username.setForeground(new java.awt.Color(51, 51, 51));
         username.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         username.setCaretColor(new java.awt.Color(0, 153, 153));
-        username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
-            }
-        });
         kGradientPanel2.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 310, 40));
 
         jLabel1.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 12)); // NOI18N
