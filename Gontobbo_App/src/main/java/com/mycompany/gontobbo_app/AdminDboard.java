@@ -111,7 +111,7 @@ public void showLineChart(){
         updateTripBTN = new com.k33ptoo.components.KButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
+        ticketSearchField = new javax.swing.JTextField();
         rmvTripBTN = new com.k33ptoo.components.KButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -198,11 +198,17 @@ public void showLineChart(){
         kGradientPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 380, 10));
         kGradientPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 380, 10));
 
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setText("         ENTER TICKET No.");
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        jTextField1.setOpaque(false);
-        kGradientPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 490, 310, 30));
+        ticketSearchField.setText("         ENTER TICKET No.");
+        ticketSearchField.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        ticketSearchField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ticketSearchFieldMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ticketSearchFieldMouseExited(evt);
+            }
+        });
+        kGradientPanel1.add(ticketSearchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 490, 310, 30));
 
         rmvTripBTN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         rmvTripBTN.setText("REMOVE TRIP");
@@ -244,7 +250,6 @@ public void showLineChart(){
         goBack.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         goBack.setkHoverStartColor(new java.awt.Color(102, 153, 255));
         goBack.setkStartColor(new java.awt.Color(0, 204, 204));
-        goBack.setOpaque(false);
         goBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackActionPerformed(evt);
@@ -316,6 +321,20 @@ public void showLineChart(){
         dispose();
     }//GEN-LAST:event_goBackActionPerformed
 
+    private void ticketSearchFieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ticketSearchFieldMouseEntered
+        // TODO add your handling code here:
+        if(ticketSearchField.getText().equals("         ENTER TICKET No.")) {
+            ticketSearchField.setText("");
+        }
+    }//GEN-LAST:event_ticketSearchFieldMouseEntered
+
+    private void ticketSearchFieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ticketSearchFieldMouseExited
+        // TODO add your handling code here:
+        if(ticketSearchField.getText().length() == 0) {
+            ticketSearchField.setText("         ENTER TICKET No.");
+        }
+    }//GEN-LAST:event_ticketSearchFieldMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -362,12 +381,12 @@ public void showLineChart(){
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private com.k33ptoo.components.KGradientPanel kGradientPanel1;
     private javax.swing.JPanel panelBarChart;
     private javax.swing.JPanel panelLineChart;
     private com.k33ptoo.components.KButton rmvTripBTN;
     private com.k33ptoo.components.KButton searchTrip;
+    private javax.swing.JTextField ticketSearchField;
     private com.k33ptoo.components.KButton updateTripBTN;
     // End of variables declaration//GEN-END:variables
 }
