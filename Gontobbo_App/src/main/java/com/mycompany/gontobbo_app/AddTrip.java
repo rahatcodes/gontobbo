@@ -4,12 +4,14 @@
  */
 package com.mycompany.gontobbo_app;
 
+import DBConnection.DBConnection;
+
 /**
  *
  * @author User
  */
 public class AddTrip extends javax.swing.JFrame {
-
+    private boolean tripIdFound;
     /**
      * Creates new form AddTrip
      */
@@ -58,11 +60,16 @@ public class AddTrip extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tripID.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         tripID.setForeground(new java.awt.Color(51, 51, 51));
-        tripID.setText("4321");
+        tripID.setText(".........");
         jPanel1.add(tripID, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
@@ -153,6 +160,15 @@ public class AddTrip extends javax.swing.JFrame {
     private void BUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BUSActionPerformed
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        // TODO add your handling code here:
+        if(!this.tripIdFound) {
+            DBConnection db = new DBConnection();
+            int newTripId = db.getNewTripId() + 1;
+            tripID.setText(Integer.toString(newTripId));
+        }
+    }//GEN-LAST:event_jPanel1MouseEntered
 
     /**
      * @param args the command line arguments
