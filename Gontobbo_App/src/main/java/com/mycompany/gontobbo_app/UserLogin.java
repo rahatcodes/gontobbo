@@ -4,6 +4,9 @@
  */
 package com.mycompany.gontobbo_app;
 
+import DBConnection.DBConnection;
+import javax.swing.JOptionPane;
+
 
 
 /**
@@ -57,22 +60,23 @@ public class UserLogin extends javax.swing.JFrame {
         kGradientPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jTextField1.setOpaque(false);
         kGradientPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 80, -1, -1));
 
         jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jTextField2.setOpaque(false);
         kGradientPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 80, -1, -1));
 
         password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        password.setOpaque(false);
         kGradientPanel2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 310, 40));
 
         username.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         username.setForeground(new java.awt.Color(51, 51, 51));
         username.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         username.setCaretColor(new java.awt.Color(0, 153, 153));
-        username.setOpaque(false);
+        username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameActionPerformed(evt);
+            }
+        });
         kGradientPanel2.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 310, 40));
 
         jLabel1.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 12)); // NOI18N
@@ -129,7 +133,6 @@ public class UserLogin extends javax.swing.JFrame {
         goBack.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         goBack.setkHoverStartColor(new java.awt.Color(102, 153, 255));
         goBack.setkStartColor(new java.awt.Color(0, 204, 204));
-        goBack.setOpaque(false);
         goBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackActionPerformed(evt);
@@ -151,8 +154,25 @@ public class UserLogin extends javax.swing.JFrame {
 
     private void userLoginBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userLoginBTNActionPerformed
         // TODO add your handling code here:
-        ReceptionistDboard recepDboard = new ReceptionistDboard();
-        recepDboard.setVisible(true);
+        String uname = username.getText();
+        String pwd = password.getText();
+        
+        if(uname.length() == 0 || pwd.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Enter both username and password", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } 
+
+        DBConnection con = new DBConnection();
+        boolean isAuthenticated = con.authenticateUser("receptionist", uname, pwd);
+        
+        if(isAuthenticated) {
+            ReceptionistDboard recepDboard = new ReceptionistDboard();
+            recepDboard.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid username or password", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
         
     }//GEN-LAST:event_userLoginBTNActionPerformed
 
