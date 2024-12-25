@@ -34,6 +34,7 @@ Desktop.ini
 
 # Maven specific files (if applicable)
 target/*
+target/
 out/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -44,3 +45,4 @@ pom.xml.next
 .gradle/
 build/
 *.sqlite3
+*.sqlite3-journal

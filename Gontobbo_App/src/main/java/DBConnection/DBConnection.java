@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -100,6 +101,30 @@ public class DBConnection {
     // Get the connection object
     public Connection getConnection() {
         return connection;
+    }
+    
+    // authenticate admin
+    public boolean authenticateUser(String userType, String username, String password) {
+        boolean isAuthenticated = false;
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        try {
+            String query = "SELECT * FROM " + userType +  " WHERE username = ? AND password = ?";
+
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            
+            try(ResultSet rs = pstmt.executeQuery()) {
+                isAuthenticated =  rs.next();
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }        
+        db.disconnect();
+        return isAuthenticated;
     }
     
     public void getAll(Connection connection, String tableName) throws SQLException {
