@@ -7,12 +7,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author DCL
@@ -150,6 +154,44 @@ public class DBConnection {
         db.disconnect();
         
         return tripId;
+    }
+    
+    
+    // create new trip
+    public void createTrip(String from, String to, String date, String type, String category, double price) {
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        System.out.println(date);
+        
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+            Date parsedDate = dateFormat.parse(date);
+            System.out.println(parsedDate);
+            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+            String query = "INSERT INTO trip (from_location, to_location, start_time, price, total_seats, available_seats, seat_type, trip_category) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, from);
+            pstmt.setString(2, to);
+            pstmt.setTimestamp(3, timestamp);
+            pstmt.setDouble(4, price);
+            pstmt.setInt(5, 40);
+            pstmt.setInt(6, 40);
+            pstmt.setString(7, type);
+            pstmt.setString(8, category);
+            
+            
+            pstmt.executeUpdate();
+            
+            System.out.println("Trip added successfully");
+            
+        } catch(SQLException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        db.disconnect();
     }
     
     public void getAll(Connection connection, String tableName) throws SQLException {

@@ -154,6 +154,30 @@ public class AddTrip extends javax.swing.JFrame {
 
     private void addTripBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTripBTNActionPerformed
         // TODO add your handling code here:
+//        if()
+        String from = fromField.getText();
+        String to = toField.getText();
+        double price = Double.parseDouble(unitPrice.getText());
+        String tripDate = date.getDate().toString();
+        String tripCategory = category.getSelectedItem().toString();
+        String tripType = "";
+        if(BUS.isSelected()) {
+            tripType = "BUS";
+        } else if(TRAIN.isSelected()) {
+            tripType = "TRAIN";
+        }
+
+        System.out.println(fromField.getText());
+        System.out.println(toField.getText());
+        System.out.println(unitPrice.getText());
+        System.out.println(date.getDate());
+        System.out.println(category.getSelectedItem());
+        System.out.println(BUS.isSelected());
+        System.out.println(TRAIN.isSelected());
+        
+        DBConnection db = new DBConnection();
+        db.createTrip(from, to, tripDate, tripType, tripCategory, price);
+
         dispose();
     }//GEN-LAST:event_addTripBTNActionPerformed
 
