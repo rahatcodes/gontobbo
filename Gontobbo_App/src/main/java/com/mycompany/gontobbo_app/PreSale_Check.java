@@ -26,48 +26,27 @@ public class PreSale_Check extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        dropDownTo = new javax.swing.JComboBox<>();
-        dropDownFrom = new javax.swing.JComboBox<>();
-        dateTripCheck = new com.toedter.calendar.JDateChooser();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        date = new com.github.lgooddatepicker.components.DateTimePicker();
         tripCheckBTN = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        dropDownFrom = new javax.swing.JComboBox<>();
+        dropDownTo = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        category = new javax.swing.JComboBox<>();
+        BUS = new javax.swing.JRadioButton();
+        jLabel12 = new javax.swing.JLabel();
+        TRAIN = new javax.swing.JRadioButton();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("TRIP CHECKER");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
-
-        dropDownTo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DHAKA", "RAJSHAHI", "RANGPUR", "SYLHET", "KHULNA", "BARISHAL", "CHITTAGONG", "MYMENSINGH" }));
-        getContentPane().add(dropDownTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 160, -1));
-
-        dropDownFrom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DHAKA", "RAJSHAHI", "RANGPUR", "SYLHET", "KHULNA", "BARISHAL", "CHITTAGONG", "MYMENSINGH" }));
-        getContentPane().add(dropDownFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 160, -1));
-        getContentPane().add(dateTripCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 160, 30));
-
-        jLabel2.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("DATE");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 40, 30));
-
-        jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("FROM");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 40, 20));
-
-        jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("TO");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 40, 20));
-
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 280, 30));
 
         tripCheckBTN.setText("CHECK");
         tripCheckBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -75,9 +54,61 @@ public class PreSale_Check extends javax.swing.JFrame {
                 tripCheckBTNActionPerformed(evt);
             }
         });
-        jPanel1.add(tripCheckBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
+        jPanel1.add(tripCheckBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 290));
+        jLabel2.setText("DATE");
+        jLabel2.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 40, 30));
+
+        jLabel4.setText("TO");
+        jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 40, 20));
+
+        jLabel3.setText("FROM");
+        jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 40, 20));
+
+        dropDownFrom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DHAKA", "RAJSHAHI", "RANGPUR", "SYLHET", "KHULNA", "BARISHAL", "CHITTAGONG", "MYMENSINGH" }));
+        jPanel1.add(dropDownFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 280, -1));
+
+        dropDownTo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DHAKA", "RAJSHAHI", "RANGPUR", "SYLHET", "KHULNA", "BARISHAL", "CHITTAGONG", "MYMENSINGH" }));
+        jPanel1.add(dropDownTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 280, -1));
+
+        jLabel1.setText("TRIP CHECKER");
+        jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
+
+        category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "NON-AC", " " }));
+        jPanel1.add(category, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 280, 30));
+
+        BUS.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        BUS.setText("Bus");
+        BUS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BUSActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BUS, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Montserrat SemiBold", 0, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Coach:");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
+
+        TRAIN.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        TRAIN.setText("Train");
+        jPanel1.add(TRAIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Montserrat SemiBold", 0, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Type:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 340));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -87,6 +118,10 @@ public class PreSale_Check extends javax.swing.JFrame {
         SaleForm saleform = new SaleForm();
         saleform.setVisible(true);
     }//GEN-LAST:event_tripCheckBTNActionPerformed
+
+    private void BUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BUSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,10 +159,15 @@ public class PreSale_Check extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser dateTripCheck;
+    private javax.swing.JRadioButton BUS;
+    private javax.swing.JRadioButton TRAIN;
+    private javax.swing.JComboBox<String> category;
+    private com.github.lgooddatepicker.components.DateTimePicker date;
     private javax.swing.JComboBox<String> dropDownFrom;
     private javax.swing.JComboBox<String> dropDownTo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -35,13 +35,13 @@ public class UserLogin extends javax.swing.JFrame {
         kGradientPanel2 = new com.k33ptoo.components.KGradientPanel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        password = new javax.swing.JTextField();
         username = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         userLoginBTN = new com.k33ptoo.components.KButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        password = new javax.swing.JPasswordField();
         goBack = new com.k33ptoo.components.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,9 +64,6 @@ public class UserLogin extends javax.swing.JFrame {
 
         jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         kGradientPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 80, -1, -1));
-
-        password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        kGradientPanel2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 310, 40));
 
         username.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         username.setForeground(new java.awt.Color(51, 51, 51));
@@ -111,6 +108,9 @@ public class UserLogin extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\icons\\logo.png"));
         kGradientPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 140, 100));
+
+        password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        kGradientPanel2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 310, 40));
 
         kGradientPanel1.add(kGradientPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 370, 460));
 
@@ -245,7 +245,7 @@ public class UserLogin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private com.k33ptoo.components.KGradientPanel kGradientPanel1;
     private com.k33ptoo.components.KGradientPanel kGradientPanel2;
-    private javax.swing.JTextField password;
+    private javax.swing.JPasswordField password;
     private com.k33ptoo.components.KButton userLoginBTN;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables

@@ -11,7 +11,9 @@ import DBConnection.DBConnection;
  * @author User
  */
 public class AddTrip extends javax.swing.JFrame {
+
     private boolean tripIdFound;
+
     /**
      * Creates new form AddTrip
      */
@@ -30,6 +32,7 @@ public class AddTrip extends javax.swing.JFrame {
 
         kButton1 = new com.k33ptoo.components.KButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
         tripID = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -37,17 +40,17 @@ public class AddTrip extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         addTripBTN = new com.k33ptoo.components.KButton();
         unitPrice = new javax.swing.JTextField();
-        fromField = new javax.swing.JTextField();
-        toField = new javax.swing.JTextField();
-        date = new com.toedter.calendar.JDateChooser();
         TRAIN = new javax.swing.JRadioButton();
         BUS = new javax.swing.JRadioButton();
+        jLabel13 = new javax.swing.JLabel();
         category = new javax.swing.JComboBox<>();
+        fromField = new javax.swing.JComboBox<>();
+        toField = new javax.swing.JComboBox<>();
+        date = new com.github.lgooddatepicker.components.DateTimePicker();
 
         kButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         kButton1.setText("CONFIRM");
@@ -70,12 +73,12 @@ public class AddTrip extends javax.swing.JFrame {
         tripID.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         tripID.setForeground(new java.awt.Color(51, 51, 51));
         tripID.setText(".........");
-        jPanel1.add(tripID, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
+        jPanel1.add(tripID, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("ADD TRIP");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
@@ -85,32 +88,27 @@ public class AddTrip extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("TRIP ID: ");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
         jLabel8.setText("From:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
         jLabel9.setText("To:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel10.setText("Date:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(51, 51, 51));
         jLabel11.setText("Type:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(51, 51, 51));
         jLabel12.setText("Coach:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, -1, -1));
 
         addTripBTN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         addTripBTN.setText("ADD TRIP");
@@ -125,14 +123,11 @@ public class AddTrip extends javax.swing.JFrame {
         });
         jPanel1.add(addTripBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, 150, 40));
         jPanel1.add(unitPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 250, 30));
-        jPanel1.add(fromField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 250, 30));
-        jPanel1.add(toField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 250, 30));
-        jPanel1.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 250, 30));
 
         buttonGroup1.add(TRAIN);
         TRAIN.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         TRAIN.setText("Train");
-        jPanel1.add(TRAIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, -1, -1));
+        jPanel1.add(TRAIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, -1, -1));
 
         buttonGroup1.add(BUS);
         BUS.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
@@ -142,10 +137,22 @@ public class AddTrip extends javax.swing.JFrame {
                 BUSActionPerformed(evt);
             }
         });
-        jPanel1.add(BUS, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, -1, -1));
+        jPanel1.add(BUS, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel13.setText("Time:");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
 
         category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "NON-AC", " " }));
-        jPanel1.add(category, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 250, 30));
+        jPanel1.add(category, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 250, 30));
+
+        fromField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DHAKA", "RAJSHAHI", "RANGPUR", "SYLHET", "KHULNA", "BARISHAL", "CHITTAGONG", "MYMENSINGH" }));
+        jPanel1.add(fromField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 250, 30));
+
+        toField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DHAKA", "RAJSHAHI", "RANGPUR", "SYLHET", "KHULNA", "BARISHAL", "CHITTAGONG", "MYMENSINGH" }));
+        jPanel1.add(toField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 250, 30));
+        jPanel1.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 250, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 520));
 
@@ -155,26 +162,26 @@ public class AddTrip extends javax.swing.JFrame {
     private void addTripBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTripBTNActionPerformed
         // TODO add your handling code here:
 //        if()
-        String from = fromField.getText();
-        String to = toField.getText();
+        String from = fromField.getSelectedItem().toString();
+        String to = toField.getSelectedItem().toString();
         double price = Double.parseDouble(unitPrice.getText());
-        String tripDate = date.getDate().toString();
+        String tripDate = date.toString();
         String tripCategory = category.getSelectedItem().toString();
         String tripType = "";
-        if(BUS.isSelected()) {
+        if (BUS.isSelected()) {
             tripType = "BUS";
-        } else if(TRAIN.isSelected()) {
+        } else if (TRAIN.isSelected()) {
             tripType = "TRAIN";
         }
 
-        System.out.println(fromField.getText());
-        System.out.println(toField.getText());
+        System.out.println(fromField.getSelectedItem());
+        System.out.println(toField.getSelectedItem());
         System.out.println(unitPrice.getText());
-        System.out.println(date.getDate());
+        System.out.println(date.toString());
         System.out.println(category.getSelectedItem());
         System.out.println(BUS.isSelected());
         System.out.println(TRAIN.isSelected());
-        
+
         DBConnection db = new DBConnection();
         db.createTrip(from, to, tripDate, tripType, tripCategory, price);
 
@@ -187,7 +194,7 @@ public class AddTrip extends javax.swing.JFrame {
 
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
         // TODO add your handling code here:
-        if(!this.tripIdFound) {
+        if (!this.tripIdFound) {
             DBConnection db = new DBConnection();
             int newTripId = db.getNewTripId() + 1;
             tripID.setText(Integer.toString(newTripId));
@@ -235,11 +242,12 @@ public class AddTrip extends javax.swing.JFrame {
     private com.k33ptoo.components.KButton addTripBTN;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> category;
-    private com.toedter.calendar.JDateChooser date;
-    private javax.swing.JTextField fromField;
-    private javax.swing.JLabel jLabel10;
+    private com.github.lgooddatepicker.components.DateTimePicker date;
+    private javax.swing.JComboBox<String> fromField;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -247,7 +255,7 @@ public class AddTrip extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private com.k33ptoo.components.KButton kButton1;
-    private javax.swing.JTextField toField;
+    private javax.swing.JComboBox<String> toField;
     private javax.swing.JLabel tripID;
     private javax.swing.JTextField unitPrice;
     // End of variables declaration//GEN-END:variables
