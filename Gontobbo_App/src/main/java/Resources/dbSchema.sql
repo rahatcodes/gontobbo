@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS "trip" (
 	"price"	decimal NOT NULL,
 	"total_seats"	integer NOT NULL,
 	"available_seats"	integer NOT NULL,
+	"seat_type" varchar(10) NOT NULL,
+	"trip_category" varchar(10) NOT NULL,
 	"created_at"	datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	"updated_at"	datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY("id" AUTOINCREMENT)
