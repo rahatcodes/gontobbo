@@ -26,7 +26,6 @@ public class ReceptionistDboard extends javax.swing.JFrame {
     private void initComponents() {
 
         kGradientPanel1 = new com.k33ptoo.components.KGradientPanel();
-        ticketSearchBTN = new com.k33ptoo.components.KButton();
         newSaleBTN = new com.k33ptoo.components.KButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -41,7 +40,6 @@ public class ReceptionistDboard extends javax.swing.JFrame {
         jProgressBar2 = new javax.swing.JProgressBar();
         goBack = new com.k33ptoo.components.KButton();
         jSeparator3 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,23 +48,6 @@ public class ReceptionistDboard extends javax.swing.JFrame {
         kGradientPanel1.setkEndColor(new java.awt.Color(51, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 204, 204));
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ticketSearchBTN.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 2, new java.awt.Color(0, 0, 0)));
-        ticketSearchBTN.setText("SEARCH");
-        ticketSearchBTN.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
-        ticketSearchBTN.setkBorderRadius(0);
-        ticketSearchBTN.setkEndColor(new java.awt.Color(204, 153, 255));
-        ticketSearchBTN.setkHoverEndColor(new java.awt.Color(51, 51, 51));
-        ticketSearchBTN.setkHoverForeGround(new java.awt.Color(102, 255, 255));
-        ticketSearchBTN.setkHoverStartColor(new java.awt.Color(51, 51, 51));
-        ticketSearchBTN.setkPressedColor(new java.awt.Color(0, 0, 0));
-        ticketSearchBTN.setkStartColor(new java.awt.Color(0, 204, 204));
-        ticketSearchBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ticketSearchBTNActionPerformed(evt);
-            }
-        });
-        kGradientPanel1.add(ticketSearchBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 520, 130, 30));
 
         newSaleBTN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         newSaleBTN.setText("NEW SALE");
@@ -99,6 +80,7 @@ public class ReceptionistDboard extends javax.swing.JFrame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -107,7 +89,7 @@ public class ReceptionistDboard extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(ticketTable);
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 570, 760, 90));
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 760, 100));
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("32,500 BDT");
@@ -170,12 +152,6 @@ public class ReceptionistDboard extends javax.swing.JFrame {
         kGradientPanel1.add(goBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 670, 90, 40));
         kGradientPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 380, 10));
 
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setText("         ENTER TICKET No.");
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        jTextField1.setOpaque(false);
-        kGradientPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, 310, 30));
-
         jLabel6.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\icons\\bg-2.png"));
         jLabel6.setText("jLabel6");
         kGradientPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -183,11 +159,8 @@ public class ReceptionistDboard extends javax.swing.JFrame {
         getContentPane().add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 720));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ticketSearchBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ticketSearchBTNActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ticketSearchBTNActionPerformed
 
     private void refundBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refundBTNActionPerformed
         // TODO add your handling code here:
@@ -256,11 +229,9 @@ public class ReceptionistDboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
     private com.k33ptoo.components.KGradientPanel kGradientPanel1;
     private com.k33ptoo.components.KButton newSaleBTN;
     private com.k33ptoo.components.KButton refundBTN;
-    private com.k33ptoo.components.KButton ticketSearchBTN;
     private javax.swing.JTable ticketTable;
     // End of variables declaration//GEN-END:variables
 }

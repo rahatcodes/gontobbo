@@ -26,6 +26,7 @@ public class PreSale_Check extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         date = new com.github.lgooddatepicker.components.DateTimePicker();
         tripCheckBTN = new javax.swing.JButton();
@@ -40,8 +41,10 @@ public class PreSale_Check extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         TRAIN = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
+        close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -54,7 +57,7 @@ public class PreSale_Check extends javax.swing.JFrame {
                 tripCheckBTNActionPerformed(evt);
             }
         });
-        jPanel1.add(tripCheckBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, -1, -1));
+        jPanel1.add(tripCheckBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, -1, -1));
 
         jLabel2.setText("DATE");
         jLabel2.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
@@ -85,8 +88,9 @@ public class PreSale_Check extends javax.swing.JFrame {
         category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "NON-AC", " " }));
         jPanel1.add(category, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 280, 30));
 
-        BUS.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        buttonGroup1.add(BUS);
         BUS.setText("Bus");
+        BUS.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         BUS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BUSActionPerformed(evt);
@@ -99,8 +103,9 @@ public class PreSale_Check extends javax.swing.JFrame {
         jLabel12.setText("Coach:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
 
-        TRAIN.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        buttonGroup1.add(TRAIN);
         TRAIN.setText("Train");
+        TRAIN.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         jPanel1.add(TRAIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Montserrat SemiBold", 0, 12)); // NOI18N
@@ -108,9 +113,18 @@ public class PreSale_Check extends javax.swing.JFrame {
         jLabel11.setText("Type:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
+        close.setText("CANCEL");
+        close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 340));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tripCheckBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tripCheckBTNActionPerformed
@@ -122,6 +136,11 @@ public class PreSale_Check extends javax.swing.JFrame {
     private void BUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BUSActionPerformed
+
+    private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_closeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,7 +180,9 @@ public class PreSale_Check extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton BUS;
     private javax.swing.JRadioButton TRAIN;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> category;
+    private javax.swing.JButton close;
     private com.github.lgooddatepicker.components.DateTimePicker date;
     private javax.swing.JComboBox<String> dropDownFrom;
     private javax.swing.JComboBox<String> dropDownTo;
