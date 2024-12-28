@@ -186,8 +186,8 @@ public class SaleForm extends javax.swing.JFrame {
 
     private void goBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackActionPerformed
         // TODO add your handling code here:
-        HomePage homepage = new HomePage();
-        homepage.setVisible(true);
+        ReceptionistDboard rdboard = new ReceptionistDboard();
+        rdboard.setVisible(true);
         dispose();
     }//GEN-LAST:event_goBackActionPerformed
 
@@ -197,7 +197,16 @@ public class SaleForm extends javax.swing.JFrame {
 
     private void confirmTicketBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmTicketBTNActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showConfirmDialog(null, "ticket No.: 2561. Trip Confirmed.");
+//        JOptionPane.showConfirmDialog(null, "ticket No.: 2561. Total Price: 552 BDT,"
+//                + "Trip Confirmed.");
+       int check_status = JOptionPane.showConfirmDialog(null, 
+                "ticket No.: 2561. Total Price: 552 BDT. Confirm Ticket?", "Ticket Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+       
+       System.out.println(check_status);
+       if(check_status ==0){
+           TicketDetails tdetails = new TicketDetails();
+           tdetails.setVisible(true);
+       }
     }//GEN-LAST:event_confirmTicketBTNActionPerformed
 
     /**

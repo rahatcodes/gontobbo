@@ -32,8 +32,6 @@ public class Refund extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         ticketNo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        dateRefund = new com.toedter.calendar.JDateChooser();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         refundBTN = new javax.swing.JButton();
 
@@ -59,12 +57,6 @@ public class Refund extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Ticket No.");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 60, 20));
-        jPanel2.add(dateRefund, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 160, 30));
-
-        jLabel2.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("DATE");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 40, 30));
 
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -131,10 +123,8 @@ public class Refund extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser dateRefund;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
