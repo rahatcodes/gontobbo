@@ -6,6 +6,11 @@ package com.mycompany.gontobbo_app;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -15,6 +20,14 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.sqlite.core.DB;
+
+import DBConnection.DBConnection;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -124,6 +137,15 @@ public void showLineChart(){
 
         kGradientPanel1.setkEndColor(new java.awt.Color(51, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 204, 204));
+        kGradientPanel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                onAddAdminDboard(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelBarChart.setBackground(new java.awt.Color(204, 255, 255));
@@ -311,6 +333,27 @@ public void showLineChart(){
     private void rmvTripBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rmvTripBTNActionPerformed
         // TODO add your handling code here:
         String tripID = JOptionPane.showInputDialog("Enter Trip ID To Remove:");
+
+        if(tripID == null || tripID.length() == 0) {
+            return;
+        }
+        int id;
+        try {
+            id = Integer.parseInt(tripID);
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid Trip Id", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        DBConnection db = new DBConnection();
+        boolean removedSuccessfully = db.removeTrip(id);
+
+        if(removedSuccessfully) {
+            JOptionPane.showMessageDialog(null, "Trip Removed Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to remove trip", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
         System.out.println(tripID);//use this to delete from database
     }//GEN-LAST:event_rmvTripBTNActionPerformed
 
@@ -334,6 +377,57 @@ public void showLineChart(){
             ticketSearchField.setText("         ENTER TICKET No.");
         }
     }//GEN-LAST:event_ticketSearchFieldMouseExited
+  
+    private void onAddAdminDboard(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_onAddAdminDboard
+        // TODO add your handling code here:
+        DBConnection db = new DBConnection();
+        db.connect();
+
+        List<Map<String, String>> trips = new ArrayList<>();
+        try {
+            trips = db.getAllTrips(db.getConnection(), "trip");
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        // clear previous data
+        ((javax.swing.table.DefaultTableModel) jTable1.getModel()).setRowCount(0);
+
+        for(Map<String, String> trip : trips) {
+            String dateTime = timeStampConverter(trip.get("start_time"));
+            trip.put("start_time", dateTime);
+            String[] row = {
+                trip.get("id"),
+                trip.get("start_time"),
+                trip.get("from"),
+                trip.get("to"),
+                trip.get("type"),
+                trip.get("seat")
+            };
+            ((javax.swing.table.DefaultTableModel) jTable1.getModel()).addRow(row);
+        }
+        db.disconnect();
+        
+    }//GEN-LAST:event_onAddAdminDboard
+
+    public static String timeStampConverter(String timestampStr) {
+        // Input timestamp in milliseconds
+        
+        long timestamp = Long.parseLong(timestampStr);
+
+        // Convert timestamp to LocalDateTime
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
+
+        // Define the output formatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // Format the LocalDateTime to the desired output format
+        String formattedDateTime = dateTime.format(formatter);
+
+        // Print the formatted date-time string
+        System.out.println("Formatted Date-Time: " + formattedDateTime);
+        return formattedDateTime;
+    }
 
     /**
      * @param args the command line arguments
