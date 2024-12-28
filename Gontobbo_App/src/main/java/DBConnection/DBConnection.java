@@ -16,6 +16,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 /**
  *
  * @author DCL
@@ -202,34 +206,66 @@ public class DBConnection {
         }
     }
     
-    public void getAll(Connection connection, String tableName) throws SQLException {
+
+    // remove trip
+    public boolean removeTrip(int tripId) {
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        
+        try {
+            String query = "DELETE FROM trip WHERE id = ?";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, tripId);
+            
+            pstmt.executeUpdate();
+            
+            System.out.println("Trip removed successfully");
+            db.disconnect();
+            return true;
+        } catch(SQLException e) {
+            db.disconnect();
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // public void getAll(Connection connection, String tableName) throws SQLException {
+    //     String selectSQL = "SELECT * from " + tableName;
+    //     Statement stmt = connection.createStatement();
+    //     ResultSet rs = stmt.executeQuery(selectSQL);
+        
+    //     System.out.println("--------------- " + tableName + "-----------------------");
+    //     while(rs.next()) {
+    //         System.out.println(rs.getString("username"));
+    //         System.out.println(rs.getString("password"));
+    //     }
+    //     System.out.println("");
+    // }
+
+    public List<Map<String, String>> getAllTrips(Connection connection , String tableName) throws SQLException {
         String selectSQL = "SELECT * from " + tableName;
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(selectSQL);
         
-        System.out.println("--------------- " + tableName + "-----------------------");
+        List<Map<String, String>> result = new ArrayList<>();
+
         while(rs.next()) {
-            System.out.println(rs.getString("username"));
-            System.out.println(rs.getString("password"));
+            Map<String, String> row = new HashMap<>();
+            row.put("id", rs.getString("id"));
+            row.put("from", rs.getString("from_location"));
+            row.put("to", rs.getString("to_location"));
+            row.put("start_time", rs.getString("start_time"));
+            row.put("type", rs.getString("trip_category"));
+            row.put("seat", rs.getString("seat_type"));
+            result.add(row);
         }
-        System.out.println("");
-        
+        return result;
     }
 
     public static void main(String[] args) {
-//        SQLiteConnection db = new SQLiteConnection();
-//        db.connect();
-//        // Perform database operations
-//        db.disconnect();
-        DBConnection db = new DBConnection();
-        db.connect();
-        Connection connection = db.getConnection();
-        try {
 
-            db.getAll(connection, "admin");
-            
-        } catch(SQLException e) {
-            System.out.println(e);
-        }
     }
 }
