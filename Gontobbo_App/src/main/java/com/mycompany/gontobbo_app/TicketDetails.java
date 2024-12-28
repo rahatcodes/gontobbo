@@ -50,6 +50,7 @@ public class TicketDetails extends javax.swing.JFrame {
         goBack = new com.k33ptoo.components.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -172,11 +173,12 @@ public class TicketDetails extends javax.swing.JFrame {
                 goBackActionPerformed(evt);
             }
         });
-        jPanel1.add(goBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 70, 20));
+        jPanel1.add(goBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, 70, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 480));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 480));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void goBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackActionPerformed

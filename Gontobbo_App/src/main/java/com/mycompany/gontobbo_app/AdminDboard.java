@@ -117,14 +117,12 @@ public void showLineChart(){
 
         kGradientPanel1 = new com.k33ptoo.components.KGradientPanel();
         panelBarChart = new javax.swing.JPanel();
-        searchTrip = new com.k33ptoo.components.KButton();
         addTripBTN = new com.k33ptoo.components.KButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         updateTripBTN = new com.k33ptoo.components.KButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        ticketSearchField = new javax.swing.JTextField();
         rmvTripBTN = new com.k33ptoo.components.KButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -134,6 +132,7 @@ public void showLineChart(){
         bgg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         kGradientPanel1.setkEndColor(new java.awt.Color(51, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 204, 204));
@@ -151,23 +150,6 @@ public void showLineChart(){
         panelBarChart.setBackground(new java.awt.Color(204, 255, 255));
         panelBarChart.setLayout(new java.awt.BorderLayout());
         kGradientPanel1.add(panelBarChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, 260, 180));
-
-        searchTrip.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 2, new java.awt.Color(0, 0, 0)));
-        searchTrip.setText("SEARCH");
-        searchTrip.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
-        searchTrip.setkBorderRadius(0);
-        searchTrip.setkEndColor(new java.awt.Color(204, 153, 255));
-        searchTrip.setkHoverEndColor(new java.awt.Color(51, 51, 51));
-        searchTrip.setkHoverForeGround(new java.awt.Color(102, 255, 255));
-        searchTrip.setkHoverStartColor(new java.awt.Color(51, 51, 51));
-        searchTrip.setkPressedColor(new java.awt.Color(0, 0, 0));
-        searchTrip.setkStartColor(new java.awt.Color(0, 204, 204));
-        searchTrip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTripActionPerformed(evt);
-            }
-        });
-        kGradientPanel1.add(searchTrip, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 490, 130, 30));
 
         addTripBTN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         addTripBTN.setText("ADD TRIP");
@@ -200,7 +182,7 @@ public void showLineChart(){
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 550, 790, 120));
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 790, 120));
 
         updateTripBTN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         updateTripBTN.setText("UPDATE TRIP");
@@ -219,18 +201,6 @@ public void showLineChart(){
         kGradientPanel1.add(updateTripBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, -1, 70));
         kGradientPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 380, 10));
         kGradientPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 380, 10));
-
-        ticketSearchField.setText("         ENTER TICKET No.");
-        ticketSearchField.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        ticketSearchField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ticketSearchFieldMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ticketSearchFieldMouseExited(evt);
-            }
-        });
-        kGradientPanel1.add(ticketSearchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 490, 310, 30));
 
         rmvTripBTN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         rmvTripBTN.setText("REMOVE TRIP");
@@ -282,7 +252,7 @@ public void showLineChart(){
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Running Trip");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 450, -1, -1));
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 460, -1, -1));
 
         panelLineChart.setLayout(new java.awt.BorderLayout());
         kGradientPanel1.add(panelLineChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 210, 250, 180));
@@ -290,33 +260,11 @@ public void showLineChart(){
         bgg.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\icons\\bg-2.png"));
         kGradientPanel1.add(bgg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1080, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        getContentPane().add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 720));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void searchTripActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTripActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchTripActionPerformed
 
     private void addTripBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTripBTNActionPerformed
         // TODO add your handling code here:
@@ -363,20 +311,6 @@ public void showLineChart(){
         homepage.setVisible(true);
         dispose();
     }//GEN-LAST:event_goBackActionPerformed
-
-    private void ticketSearchFieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ticketSearchFieldMouseEntered
-        // TODO add your handling code here:
-        if(ticketSearchField.getText().equals("         ENTER TICKET No.")) {
-            ticketSearchField.setText("");
-        }
-    }//GEN-LAST:event_ticketSearchFieldMouseEntered
-
-    private void ticketSearchFieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ticketSearchFieldMouseExited
-        // TODO add your handling code here:
-        if(ticketSearchField.getText().length() == 0) {
-            ticketSearchField.setText("         ENTER TICKET No.");
-        }
-    }//GEN-LAST:event_ticketSearchFieldMouseExited
   
     private void onAddAdminDboard(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_onAddAdminDboard
         // TODO add your handling code here:
@@ -479,8 +413,6 @@ public void showLineChart(){
     private javax.swing.JPanel panelBarChart;
     private javax.swing.JPanel panelLineChart;
     private com.k33ptoo.components.KButton rmvTripBTN;
-    private com.k33ptoo.components.KButton searchTrip;
-    private javax.swing.JTextField ticketSearchField;
     private com.k33ptoo.components.KButton updateTripBTN;
     // End of variables declaration//GEN-END:variables
 }
