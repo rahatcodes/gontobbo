@@ -26,6 +26,7 @@ public class PreSale_Check extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         date = new com.github.lgooddatepicker.components.DateTimePicker();
         tripCheckBTN = new javax.swing.JButton();
@@ -87,8 +88,9 @@ public class PreSale_Check extends javax.swing.JFrame {
         category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "NON-AC", " " }));
         jPanel1.add(category, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 280, 30));
 
-        BUS.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        buttonGroup1.add(BUS);
         BUS.setText("Bus");
+        BUS.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         BUS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BUSActionPerformed(evt);
@@ -101,8 +103,9 @@ public class PreSale_Check extends javax.swing.JFrame {
         jLabel12.setText("Coach:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
 
-        TRAIN.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        buttonGroup1.add(TRAIN);
         TRAIN.setText("Train");
+        TRAIN.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         jPanel1.add(TRAIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Montserrat SemiBold", 0, 12)); // NOI18N
@@ -179,6 +182,7 @@ public class PreSale_Check extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton BUS;
     private javax.swing.JRadioButton TRAIN;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> category;
     private com.github.lgooddatepicker.components.DateTimePicker date;
     private javax.swing.JComboBox<String> dropDownFrom;
