@@ -4,6 +4,11 @@
  */
 package com.mycompany.gontobbo_app;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.JOptionPane;
+
 import DBConnection.DBConnection;
 
 /**
@@ -161,31 +166,84 @@ public class AddTrip extends javax.swing.JFrame {
 
     private void addTripBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTripBTNActionPerformed
         // TODO add your handling code here:
-//        if()
-        String from = fromField.getSelectedItem().toString();
-        String to = toField.getSelectedItem().toString();
-        double price = Double.parseDouble(unitPrice.getText());
-        String tripDate = date.toString();
-        String tripCategory = category.getSelectedItem().toString();
-        String tripType = "";
-        if (BUS.isSelected()) {
-            tripType = "BUS";
-        } else if (TRAIN.isSelected()) {
-            tripType = "TRAIN";
+        String from;
+        String to;
+        String tripDate;
+        String tripType;
+        String tripCategory;
+        double price;
+        try {
+            from = fromField.getSelectedItem().toString();
+            to = toField.getSelectedItem().toString();
+            price = Double.parseDouble(unitPrice.getText());
+            tripDate = date.toString();
+            tripCategory = category.getSelectedItem().toString();
+            tripType = "";
+            if (BUS.isSelected()) {
+                tripType = "BUS";
+            } else if (TRAIN.isSelected()) {
+                tripType = "TRAIN";
+            }
+
+            System.out.println(date.getDatePicker().getDate().toString());
+            System.out.println(date.getTimePicker().getTime().toString());
+            if(date.getDatePicker().getDate().toString().equals("")) {
+                throw new Exception();
+            }
+
+            if(from.equals("") || to.equals("") || tripDate.equals("") || tripType.equals("") || tripCategory.equals("") || price == 0) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Please fill in all the fields correctly. Check if you have entered an incorrect date or price.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Please fill all the fields");
+            return;
         }
+        
+
+        // check if from and to are the same
+        if(from.equals(to)) {
+            JOptionPane.showMessageDialog(null, "From location and to location cannot be the same", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("From location and to location cannot be the same");
+            return;
+        }
+
+
+        // check if trip date is in the past
+        LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime tripDateTime = LocalDateTime.parse(tripDate, formatter);
+
+        if(!tripDateTime.isAfter(now)) {
+            JOptionPane.showMessageDialog(null, "Trip date cannot be in the past", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Trip date cannot be in the past");
+            return;
+        }
+
+
 
         System.out.println(fromField.getSelectedItem());
         System.out.println(toField.getSelectedItem());
         System.out.println(unitPrice.getText());
-        System.out.println(date.toString());
+        System.out.println(date.toString() + "date");
         System.out.println(category.getSelectedItem());
         System.out.println(BUS.isSelected());
         System.out.println(TRAIN.isSelected());
+        System.out.println(jDateChooser1 + " date chooser 1");
 
         DBConnection db = new DBConnection();
-        db.createTrip(from, to, tripDate, tripType, tripCategory, price);
+        boolean addedSuccessfully = db.createTrip(from, to, tripDate, tripType, tripCategory, price);
 
-        dispose();
+        if (addedSuccessfully) {
+            JOptionPane.showMessageDialog(null, "Trip added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to add trip", "Error", JOptionPane.ERROR_MESSAGE);
+            dispose();
+        }
+
     }//GEN-LAST:event_addTripBTNActionPerformed
 
     private void BUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSActionPerformed
