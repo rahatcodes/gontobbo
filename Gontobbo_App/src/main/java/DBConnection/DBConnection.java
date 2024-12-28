@@ -14,9 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author DCL
@@ -158,7 +157,7 @@ public class DBConnection {
     
     
     // create new trip
-    public void createTrip(String from, String to, String date, String type, String category, double price) {
+    public boolean createTrip(String from, String to, String date, String type, String category, double price) {
         DBConnection db = new DBConnection();
         db.connect();
         
@@ -166,10 +165,18 @@ public class DBConnection {
         System.out.println(date);
         
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
-            Date parsedDate = dateFormat.parse(date);
-            System.out.println(parsedDate);
-            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+            // Parse the date string to LocalDateTime 
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; 
+            LocalDateTime localDateTime = LocalDateTime.parse(date, inputFormatter);
+            
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateStr = localDateTime.format(outputFormatter);
+            
+            LocalDateTime formattedDateTime = LocalDateTime.parse(formattedDateStr, outputFormatter);
+            
+            Timestamp timestamp = Timestamp.valueOf(formattedDateTime);
+            System.out.println(formattedDateTime);
+            System.out.println(timestamp);
             String query = "INSERT INTO trip (from_location, to_location, start_time, price, total_seats, available_seats, seat_type, trip_category) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -186,12 +193,13 @@ public class DBConnection {
             pstmt.executeUpdate();
             
             System.out.println("Trip added successfully");
-            
-        } catch(SQLException | ParseException e) {
+            db.disconnect();
+            return true;
+        } catch(SQLException e) {
+            db.disconnect();
             e.printStackTrace();
+            return false;
         }
-
-        db.disconnect();
     }
     
     public void getAll(Connection connection, String tableName) throws SQLException {
