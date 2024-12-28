@@ -33,6 +33,7 @@ public class Refund extends javax.swing.JFrame {
         ticketNo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        refundBTN1 = new javax.swing.JButton();
         refundBTN = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -47,6 +48,7 @@ public class Refund extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
@@ -63,13 +65,21 @@ public class Refund extends javax.swing.JFrame {
         jLabel1.setText("CHECK REFUND");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
+        refundBTN1.setText("CANCEL");
+        refundBTN1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refundBTN1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(refundBTN1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, -1, -1));
+
         refundBTN.setText("REFUND");
         refundBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refundBTNActionPerformed(evt);
             }
         });
-        jPanel2.add(refundBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, -1, -1));
+        jPanel2.add(refundBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, -1, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 300));
 
@@ -87,6 +97,11 @@ public class Refund extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_refundBTNActionPerformed
+
+    private void refundBTN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refundBTN1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_refundBTN1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,6 +145,7 @@ public class Refund extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton refundBTN;
+    private javax.swing.JButton refundBTN1;
     private javax.swing.JTextField ticketNo;
     // End of variables declaration//GEN-END:variables
 }
