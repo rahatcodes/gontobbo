@@ -153,10 +153,10 @@ public class TicketDetails extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\icons\\logo.png"));
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 140, 100));
 
-        goBack.setBorder(null);
-        goBack.setForeground(new java.awt.Color(51, 51, 51));
         goBack.setText("Close");
+        goBack.setBorder(null);
         goBack.setFont(new java.awt.Font("Montserrat SemiBold", 0, 12)); // NOI18N
+        goBack.setForeground(new java.awt.Color(51, 51, 51));
         goBack.setkAllowGradient(false);
         goBack.setkBackGroundColor(new java.awt.Color(255, 255, 255));
         goBack.setkBorderRadius(0);
@@ -174,9 +174,10 @@ public class TicketDetails extends javax.swing.JFrame {
         });
         jPanel1.add(goBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 70, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 480));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 480));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void goBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackActionPerformed

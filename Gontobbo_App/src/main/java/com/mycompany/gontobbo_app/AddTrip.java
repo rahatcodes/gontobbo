@@ -49,6 +49,7 @@ public class AddTrip extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         category = new javax.swing.JComboBox<>();
         fromField = new javax.swing.JComboBox<>();
+        addTripBTN1 = new com.k33ptoo.components.KButton();
         toField = new javax.swing.JComboBox<>();
         date = new com.github.lgooddatepicker.components.DateTimePicker();
 
@@ -60,6 +61,7 @@ public class AddTrip extends javax.swing.JFrame {
         kButton1.setkHoverStartColor(new java.awt.Color(102, 102, 102));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -70,49 +72,49 @@ public class AddTrip extends javax.swing.JFrame {
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tripID.setText(".........");
         tripID.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         tripID.setForeground(new java.awt.Color(51, 51, 51));
-        tripID.setText(".........");
         jPanel1.add(tripID, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
 
+        jLabel5.setText("ADD TRIP");
         jLabel5.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel5.setText("ADD TRIP");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, -1, -1));
 
+        jLabel6.setText("Price:");
         jLabel6.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel6.setText("Price:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
 
+        jLabel7.setText("TRIP ID: ");
         jLabel7.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel7.setText("TRIP ID: ");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
 
+        jLabel8.setText("From:");
         jLabel8.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("From:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
 
+        jLabel9.setText("To:");
         jLabel9.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("To:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
+        jLabel11.setText("Type:");
         jLabel11.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel11.setText("Type:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
+        jLabel12.setText("Coach:");
         jLabel12.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel12.setText("Coach:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, -1, -1));
 
+        addTripBTN.setText("CLOSE");
         addTripBTN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        addTripBTN.setText("ADD TRIP");
-        addTripBTN.setkBorderRadius(50);
+        addTripBTN.setkBorderRadius(0);
         addTripBTN.setkHoverEndColor(new java.awt.Color(51, 51, 51));
         addTripBTN.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         addTripBTN.setkHoverStartColor(new java.awt.Color(102, 102, 102));
@@ -121,7 +123,7 @@ public class AddTrip extends javax.swing.JFrame {
                 addTripBTNActionPerformed(evt);
             }
         });
-        jPanel1.add(addTripBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, 150, 40));
+        jPanel1.add(addTripBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 470, 80, 30));
         jPanel1.add(unitPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 250, 30));
 
         buttonGroup1.add(TRAIN);
@@ -139,9 +141,9 @@ public class AddTrip extends javax.swing.JFrame {
         });
         jPanel1.add(BUS, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, -1, -1));
 
+        jLabel13.setText("Time:");
         jLabel13.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel13.setText("Time:");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
 
         category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "NON-AC", " " }));
@@ -150,6 +152,19 @@ public class AddTrip extends javax.swing.JFrame {
         fromField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DHAKA", "RAJSHAHI", "RANGPUR", "SYLHET", "KHULNA", "BARISHAL", "CHITTAGONG", "MYMENSINGH" }));
         jPanel1.add(fromField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 250, 30));
 
+        addTripBTN1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        addTripBTN1.setText("ADD TRIP");
+        addTripBTN1.setkBorderRadius(50);
+        addTripBTN1.setkHoverEndColor(new java.awt.Color(51, 51, 51));
+        addTripBTN1.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        addTripBTN1.setkHoverStartColor(new java.awt.Color(102, 102, 102));
+        addTripBTN1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addTripBTN1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(addTripBTN1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, 150, 40));
+
         toField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DHAKA", "RAJSHAHI", "RANGPUR", "SYLHET", "KHULNA", "BARISHAL", "CHITTAGONG", "MYMENSINGH" }));
         jPanel1.add(toField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 250, 30));
         jPanel1.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 250, 30));
@@ -157,11 +172,31 @@ public class AddTrip extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 520));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addTripBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTripBTNActionPerformed
         // TODO add your handling code here:
-//        if()
+        dispose();
+
+    }//GEN-LAST:event_addTripBTNActionPerformed
+
+    private void BUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BUSActionPerformed
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        // TODO add your handling code here:
+        if (!this.tripIdFound) {
+            DBConnection db = new DBConnection();
+            int newTripId = db.getNewTripId() + 1;
+            tripID.setText(Integer.toString(newTripId));
+        }
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void addTripBTN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTripBTN1ActionPerformed
+        // TODO add your handling code here:
+        //if()
         String from = fromField.getSelectedItem().toString();
         String to = toField.getSelectedItem().toString();
         double price = Double.parseDouble(unitPrice.getText());
@@ -186,20 +221,7 @@ public class AddTrip extends javax.swing.JFrame {
         db.createTrip(from, to, tripDate, tripType, tripCategory, price);
 
         dispose();
-    }//GEN-LAST:event_addTripBTNActionPerformed
-
-    private void BUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BUSActionPerformed
-
-    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
-        // TODO add your handling code here:
-        if (!this.tripIdFound) {
-            DBConnection db = new DBConnection();
-            int newTripId = db.getNewTripId() + 1;
-            tripID.setText(Integer.toString(newTripId));
-        }
-    }//GEN-LAST:event_jPanel1MouseEntered
+    }//GEN-LAST:event_addTripBTN1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,6 +262,7 @@ public class AddTrip extends javax.swing.JFrame {
     private javax.swing.JRadioButton BUS;
     private javax.swing.JRadioButton TRAIN;
     private com.k33ptoo.components.KButton addTripBTN;
+    private com.k33ptoo.components.KButton addTripBTN1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> category;
     private com.github.lgooddatepicker.components.DateTimePicker date;

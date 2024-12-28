@@ -40,15 +40,17 @@ public class PreSale_Check extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         TRAIN = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
+        tripCheckBTN1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 280, 30));
 
-        tripCheckBTN.setText("CHECK");
+        tripCheckBTN.setText("CANCEL");
         tripCheckBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tripCheckBTNActionPerformed(evt);
@@ -108,20 +110,36 @@ public class PreSale_Check extends javax.swing.JFrame {
         jLabel11.setText("Type:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
+        tripCheckBTN1.setText("CHECK");
+        tripCheckBTN1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tripCheckBTN1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tripCheckBTN1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 340));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tripCheckBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tripCheckBTNActionPerformed
         // TODO add your handling code here:
-        SaleForm saleform = new SaleForm();
-        saleform.setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_tripCheckBTNActionPerformed
 
     private void BUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BUSActionPerformed
+
+    private void tripCheckBTN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tripCheckBTN1ActionPerformed
+        // TODO add your handling code here:
+        SaleForm saleform = new SaleForm();
+        saleform.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_tripCheckBTN1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,5 +191,6 @@ public class PreSale_Check extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton tripCheckBTN;
+    private javax.swing.JButton tripCheckBTN1;
     // End of variables declaration//GEN-END:variables
 }
