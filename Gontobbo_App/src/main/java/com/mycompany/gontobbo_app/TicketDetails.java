@@ -4,17 +4,25 @@
  */
 package com.mycompany.gontobbo_app;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author User
  */
 public class TicketDetails extends javax.swing.JFrame {
-
+    Map<String, String> tripDetails = new HashMap<String, String>();
     /**
      * Creates new form TicketDetails
      */
-    public TicketDetails() {
+    public TicketDetails(Map<String, String> tripDetails) {
         initComponents();
+        this.tripDetails = tripDetails;
     }
 
     /**
@@ -54,6 +62,15 @@ public class TicketDetails extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jPanel1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
@@ -99,7 +116,7 @@ public class TicketDetails extends javax.swing.JFrame {
         date.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
         date.setForeground(new java.awt.Color(255, 255, 255));
         date.setText("12/02/2025");
-        jPanel1.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 80, 30));
+        jPanel1.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 140, 30));
 
         jLabel8.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,7 +161,7 @@ public class TicketDetails extends javax.swing.JFrame {
         price.setFont(new java.awt.Font("Montserrat SemiBold", 0, 11)); // NOI18N
         price.setForeground(new java.awt.Color(255, 255, 255));
         price.setText("999 BDT");
-        jPanel1.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 80, 20));
+        jPanel1.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 120, 20));
 
         jLabel13.setFont(new java.awt.Font("Montserrat SemiBold", 0, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,6 +204,41 @@ public class TicketDetails extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_goBackActionPerformed
 
+    private void jPanel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1AncestorAdded
+        // TODO add your handling code here:
+        String dateTime = tripDetails.get("start_time");
+        String formattedDateTime = timeStampConverter(dateTime);
+        jLabel3.setText(tripDetails.get("bookingId"));
+        name1.setText(tripDetails.get("name"));
+        phone1.setText(tripDetails.get("phone"));
+        fromField1.setText(tripDetails.get("from"));
+        toField2.setText(tripDetails.get("to"));
+        date.setText(formattedDateTime);
+        type.setText(tripDetails.get("type"));
+        coach.setText(tripDetails.get("category"));
+        price.setText(tripDetails.get("totalAmount") + " (seats: " + tripDetails.get("totalSeats") + ")");
+
+    }//GEN-LAST:event_jPanel1AncestorAdded
+
+
+    public static String timeStampConverter(String timestampStr) {
+        // Input timestamp in milliseconds
+        
+        long timestamp = Long.parseLong(timestampStr);
+
+        // Convert timestamp to LocalDateTime
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
+
+        // Define the output formatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // Format the LocalDateTime to the desired output format
+        String formattedDateTime = dateTime.format(formatter);
+
+        // Print the formatted date-time string
+        System.out.println("Formatted Date-Time: " + formattedDateTime);
+        return formattedDateTime;
+    }
     /**
      * @param args the command line arguments
      */
@@ -215,11 +267,11 @@ public class TicketDetails extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TicketDetails().setVisible(true);
-            }
-        });
+        // java.awt.EventQueue.invokeLater(new Runnable() {
+        //     public void run() {
+        //         new TicketDetails().setVisible(true);
+        //     }
+        // });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
