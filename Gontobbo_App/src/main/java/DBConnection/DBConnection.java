@@ -276,6 +276,118 @@ public class DBConnection {
     }
 
 
+    // get trip details
+    public Map<String, String> getTripDetails(int tripId) {
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        
+        try {
+            String query = "SELECT * FROM trip WHERE id = ?";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, tripId);
+            
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if(rs.next()) {
+                    Map<String, String> row = new HashMap<>();
+                    row.put("id", rs.getString("id"));
+                    row.put("from", rs.getString("from_location"));
+                    row.put("to", rs.getString("to_location"));
+                    row.put("start_time", rs.getString("start_time"));
+                    row.put("available_seats", rs.getString("available_seats"));
+                    row.put("category", rs.getString("trip_category"));
+                    row.put("type", rs.getString("seat_type"));
+                    row.put("price", rs.getString("price"));
+                    db.disconnect();
+                    return row;
+                }
+            }
+        } catch(SQLException e) {
+            db.disconnect();
+            e.printStackTrace();
+        }
+        db.disconnect();
+        return null;
+    }
+
+
+    // create booking
+    public int createBooking(Map<String, String> tripDetails) {
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        
+        try {
+            String query = "INSERT INTO booking (passenger_name, passenger_phone, passenger_nid, total_seats, total_price, seller_id, trip_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, tripDetails.get("name"));
+            pstmt.setString(2, tripDetails.get("phone"));
+            pstmt.setString(3, tripDetails.get("nid"));
+            pstmt.setInt(4, Integer.parseInt(tripDetails.get("totalSeats")));
+            pstmt.setDouble(5, Double.parseDouble(tripDetails.get("price")));
+            pstmt.setInt(6, 1);
+            pstmt.setInt(7, Integer.parseInt(tripDetails.get("id")));
+            
+            pstmt.executeUpdate();
+            
+            pstmt = con.prepareStatement("UPDATE trip SET available_seats = available_seats - ? WHERE id = ?");
+            pstmt.setInt(1, Integer.parseInt(tripDetails.get("totalSeats")));
+            pstmt.setInt(2, Integer.parseInt(tripDetails.get("id")));
+
+            pstmt.executeUpdate();
+
+            pstmt = con.prepareStatement("SELECT id FROM booking ORDER BY id DESC LIMIT 1");
+            ResultSet rs = pstmt.executeQuery();
+            int bookingId = rs.getInt("id");
+
+            System.out.println("Booking added successfully");
+            db.disconnect();
+            return bookingId;
+        } catch(SQLException e) {
+            db.disconnect();
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+    // get all bookings
+    public List<Map<String, String>> getAllBookings() {
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        
+        try {
+            String query = "SELECT (id, passenger_name, passenger_phone, start_time) FROM booking ORDER BY id DESC JOIN trip ON booking.trip_id = trip.id";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            
+            try(ResultSet rs = pstmt.executeQuery()) {
+                List<Map<String, String>> result = new ArrayList<>();
+                while(rs.next()) {
+                    Map<String, String> row = new HashMap<>();
+                    row.put("id", rs.getString("id"));
+                    row.put("name", rs.getString("passenger_name"));
+                    row.put("phone", rs.getString("passenger_phone"));
+                    row.put("date", rs.getString("start_time"));
+                    result.add(row);
+                }
+                db.disconnect();
+                return result;
+            }
+        } catch(SQLException e) {
+            db.disconnect();
+            e.printStackTrace();
+        }
+        db.disconnect();
+        return null;
+    }
+
     // check if a trip is available
     public int isTripAvailable(String from, String to, String tripType, String tripCategory, String tripDate) {
         DBConnection db = new DBConnection();
