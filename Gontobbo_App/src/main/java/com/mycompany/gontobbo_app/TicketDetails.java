@@ -4,12 +4,10 @@
  */
 package com.mycompany.gontobbo_app;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+
+import DBConnection.DBConnection;
 
 /**
  *
@@ -207,7 +205,7 @@ public class TicketDetails extends javax.swing.JFrame {
     private void jPanel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1AncestorAdded
         // TODO add your handling code here:
         String dateTime = tripDetails.get("start_time");
-        String formattedDateTime = timeStampConverter(dateTime);
+        String formattedDateTime = DBConnection.timeStampConverter(dateTime);
         jLabel3.setText(tripDetails.get("bookingId"));
         name1.setText(tripDetails.get("name"));
         phone1.setText(tripDetails.get("phone"));
@@ -220,25 +218,6 @@ public class TicketDetails extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jPanel1AncestorAdded
 
-
-    public static String timeStampConverter(String timestampStr) {
-        // Input timestamp in milliseconds
-        
-        long timestamp = Long.parseLong(timestampStr);
-
-        // Convert timestamp to LocalDateTime
-        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
-
-        // Define the output formatter
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        // Format the LocalDateTime to the desired output format
-        String formattedDateTime = dateTime.format(formatter);
-
-        // Print the formatted date-time string
-        System.out.println("Formatted Date-Time: " + formattedDateTime);
-        return formattedDateTime;
-    }
     /**
      * @param args the command line arguments
      */

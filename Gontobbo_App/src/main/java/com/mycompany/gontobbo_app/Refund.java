@@ -4,18 +4,23 @@
  */
 package com.mycompany.gontobbo_app;
 
+import javax.swing.JOptionPane;
+
+
+import DBConnection.DBConnection;
 
 /**
  *
  * @author User
  */
 public class Refund extends javax.swing.JFrame {
-
+    private ReceptionistDboard rDboard;
     /**
      * Creates new form Refund
      */
-    public Refund() {
+    public Refund(ReceptionistDboard rDboard) {
         initComponents();
+        this.rDboard = rDboard;
     }
 
     /**
@@ -95,6 +100,26 @@ public class Refund extends javax.swing.JFrame {
 
     private void refundBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refundBTNActionPerformed
         // TODO add your handling code here:
+        int ticketId = 0;
+        try {
+            ticketId = Integer.parseInt(ticketNo.getText());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(this, "Please enter a valid ticket number");
+            return;
+        }
+
+        // Refund ticket
+        DBConnection db = new DBConnection();
+        boolean isRefunded = db.refundBooking(ticketId);
+        if (isRefunded) {
+            JOptionPane.showMessageDialog(this, "Ticket refunded successfully");
+            System.out.println("Ticket refunded successfully");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ticket refund failed. Make sure to enter correct ticket number");
+            System.out.println("Ticket refund failed");
+        }
+        rDboard.renderTable();
         dispose();
     }//GEN-LAST:event_refundBTNActionPerformed
 
@@ -131,11 +156,11 @@ public class Refund extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Refund().setVisible(true);
-            }
-        });
+        // java.awt.EventQueue.invokeLater(new Runnable() {
+        //     public void run() {
+        //         new Refund().setVisible(true);
+        //     }
+        // });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

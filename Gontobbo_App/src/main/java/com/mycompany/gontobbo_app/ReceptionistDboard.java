@@ -3,12 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.gontobbo_app;
+
+import java.util.List;
+import java.util.Map;
+
+
+import DBConnection.DBConnection;
+
 /**
  *
  * @author User
  */
 public class ReceptionistDboard extends javax.swing.JFrame {
-
+    private int totalSale;
     /**
      * Creates new form ReceptionistDboard
      */
@@ -47,6 +54,15 @@ public class ReceptionistDboard extends javax.swing.JFrame {
 
         kGradientPanel1.setkEndColor(new java.awt.Color(51, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 204, 204));
+        kGradientPanel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                receptionistDboardAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newSaleBTN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
@@ -91,7 +107,6 @@ public class ReceptionistDboard extends javax.swing.JFrame {
 
         kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 760, 100));
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("32,500 BDT");
         kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, -1, 20));
 
@@ -143,7 +158,6 @@ public class ReceptionistDboard extends javax.swing.JFrame {
         goBack.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         goBack.setkHoverStartColor(new java.awt.Color(102, 153, 255));
         goBack.setkStartColor(new java.awt.Color(0, 204, 204));
-        goBack.setOpaque(false);
         goBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackActionPerformed(evt);
@@ -164,13 +178,13 @@ public class ReceptionistDboard extends javax.swing.JFrame {
 
     private void refundBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refundBTNActionPerformed
         // TODO add your handling code here:
-        Refund refund = new Refund();
+        Refund refund = new Refund(this);
         refund.setVisible(true);
     }//GEN-LAST:event_refundBTNActionPerformed
 
     private void newSaleBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSaleBTNActionPerformed
         // TODO add your handling code here:
-        PreSale_Check presale = new PreSale_Check();
+        PreSale_Check presale = new PreSale_Check(this);
         presale.setVisible(true);
     }//GEN-LAST:event_newSaleBTNActionPerformed
 
@@ -180,6 +194,37 @@ public class ReceptionistDboard extends javax.swing.JFrame {
         homepage.setVisible(true);
         dispose();
     }//GEN-LAST:event_goBackActionPerformed
+
+    private void receptionistDboardAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_receptionistDboardAncestorAdded
+        // TODO add your handling code here:
+        this.renderTable();
+        
+    }//GEN-LAST:event_receptionistDboardAncestorAdded
+
+
+    public void renderTable() {
+        DBConnection db = new DBConnection();
+        List<Map<String, String>> allSales = db.getAllBookings();
+        System.out.println(allSales);
+        if(allSales != null) {
+            // clear previous data
+            ((javax.swing.table.DefaultTableModel) ticketTable.getModel()).setRowCount(0);
+            this.totalSale = 0;
+            for (Map<String, String> sale : allSales) {
+                this.totalSale += Integer.parseInt(sale.get("price"));
+                System.out.println(sale);
+                String dateTime = DBConnection.timeStampConverter(sale.get("date"));
+                String[] row = {
+                    dateTime,
+                    sale.get("id"),
+                    sale.get("name"),
+                    sale.get("phone")
+                };
+                ((javax.swing.table.DefaultTableModel) ticketTable.getModel()).addRow(row);
+            }
+        }
+        jLabel5.setText(this.totalSale + " BDT");
+    }
 
     /**
      * @param args the command line arguments

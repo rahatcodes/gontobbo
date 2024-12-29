@@ -20,13 +20,8 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-import org.sqlite.core.DB;
 
 import DBConnection.DBConnection;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
@@ -319,25 +314,6 @@ public void showLineChart(){
         
     }//GEN-LAST:event_onAddAdminDboard
 
-    public static String timeStampConverter(String timestampStr) {
-        // Input timestamp in milliseconds
-        
-        long timestamp = Long.parseLong(timestampStr);
-
-        // Convert timestamp to LocalDateTime
-        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
-
-        // Define the output formatter
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        // Format the LocalDateTime to the desired output format
-        String formattedDateTime = dateTime.format(formatter);
-
-        // Print the formatted date-time string
-        System.out.println("Formatted Date-Time: " + formattedDateTime);
-        return formattedDateTime;
-    }
-
     public void renderTableData() {
         System.out.println("AdminDboard");
         DBConnection db = new DBConnection();
@@ -354,7 +330,7 @@ public void showLineChart(){
         ((javax.swing.table.DefaultTableModel) jTable1.getModel()).setRowCount(0);
 
         for(Map<String, String> trip : trips) {
-            String dateTime = timeStampConverter(trip.get("start_time"));
+            String dateTime = DBConnection.timeStampConverter(trip.get("start_time"));
             trip.put("start_time", dateTime);
             String[] row = {
                 trip.get("id"),
