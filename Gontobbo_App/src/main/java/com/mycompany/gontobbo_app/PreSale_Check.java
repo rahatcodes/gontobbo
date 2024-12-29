@@ -16,12 +16,14 @@ import DBConnection.DBConnection;
  * @author User
  */
 public class PreSale_Check extends javax.swing.JFrame {
-
+    private ReceptionistDboard rDboard;
     /**
      * Creates new form PreSale_Check
+     * @param rDboard
      */
-    public PreSale_Check() {
+    public PreSale_Check(ReceptionistDboard rDboard) {
         initComponents();
+        this.rDboard = rDboard;
     }
 
     /**
@@ -195,7 +197,7 @@ public class PreSale_Check extends javax.swing.JFrame {
             return;
         } else {
             System.out.println("Trip available " + ticketId);
-            SaleForm saleform = new SaleForm(ticketId);
+            SaleForm saleform = new SaleForm(ticketId, this.rDboard);
             saleform.setVisible(true);
             dispose();
         }
@@ -239,11 +241,11 @@ public class PreSale_Check extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PreSale_Check().setVisible(true);
-            }
-        });
+        // java.awt.EventQueue.invokeLater(new Runnable() {
+        //     public void run() {
+        //         new PreSale_Check().setVisible(true);
+        //     }
+        // });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

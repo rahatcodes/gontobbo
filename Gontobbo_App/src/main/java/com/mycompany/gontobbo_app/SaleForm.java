@@ -21,10 +21,12 @@ public class SaleForm extends javax.swing.JFrame {
     private int seatPrice;
     private int totalAmount;
     private Map<String, String> tripDetails;
+    private ReceptionistDboard rDboard;
 
-    public SaleForm(int tripId) {
+    public SaleForm(int tripId, ReceptionistDboard rDboard) {
         initComponents();
         this.tripId = tripId;
+        this.rDboard = rDboard;
     }
 
     /**
@@ -192,6 +194,8 @@ public class SaleForm extends javax.swing.JFrame {
                 this.tripDetails.put("bookingId", Integer.toString(bookingId));
                 TicketDetails tdetails = new TicketDetails(this.tripDetails);
                 tdetails.setVisible(true);
+                this.rDboard.renderTable();
+                dispose();
             }
         }
     }//GEN-LAST:event_confirmTicketBTNActionPerformed
