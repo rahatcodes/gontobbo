@@ -25,7 +25,7 @@ import java.util.Map;
  * @author DCL
  */
 public class DBConnection {
- private Connection connection;
+    private Connection connection;
 
     // create new db if db doesn't exist and create the tables
     public void createDb() {
@@ -169,17 +169,7 @@ public class DBConnection {
         System.out.println(date);
         
         try {
-            // Parse the date string to LocalDateTime 
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; 
-            LocalDateTime localDateTime = LocalDateTime.parse(date, inputFormatter);
-            
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String formattedDateStr = localDateTime.format(outputFormatter);
-            
-            LocalDateTime formattedDateTime = LocalDateTime.parse(formattedDateStr, outputFormatter);
-            
-            Timestamp timestamp = Timestamp.valueOf(formattedDateTime);
-            System.out.println(formattedDateTime);
+            Timestamp timestamp = Utilites.getFormattedDate(date);
             System.out.println(timestamp);
             String query = "INSERT INTO trip (from_location, to_location, start_time, price, total_seats, available_seats, seat_type, trip_category) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             
@@ -207,6 +197,38 @@ public class DBConnection {
     }
     
 
+    // update trip
+    public boolean updateTrip(int tripId, String from, String to, String date, String type, String category, double price) {
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        
+        try {
+            Timestamp timestamp = Utilites.getFormattedDate(date);
+            String query = "UPDATE trip SET from_location = ?, to_location = ?, start_time = ?, price = ?, seat_type = ?, trip_category = ? WHERE id = ? ORDER BY id ASC LIMIT 1";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, from);
+            pstmt.setString(2, to);
+            pstmt.setTimestamp(3, timestamp);
+            pstmt.setDouble(4, price);
+            pstmt.setString(5, type);
+            pstmt.setString(6, category);
+            pstmt.setInt(7, tripId);
+            
+            pstmt.executeUpdate();
+            
+            System.out.println("Trip updated successfully");
+            db.disconnect();
+            return true;
+        } catch(SQLException e) {
+            db.disconnect();
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     // remove trip
     public boolean removeTrip(int tripId) {
         DBConnection db = new DBConnection();
@@ -232,21 +254,9 @@ public class DBConnection {
         }
     }
 
-    // public void getAll(Connection connection, String tableName) throws SQLException {
-    //     String selectSQL = "SELECT * from " + tableName;
-    //     Statement stmt = connection.createStatement();
-    //     ResultSet rs = stmt.executeQuery(selectSQL);
-        
-    //     System.out.println("--------------- " + tableName + "-----------------------");
-    //     while(rs.next()) {
-    //         System.out.println(rs.getString("username"));
-    //         System.out.println(rs.getString("password"));
-    //     }
-    //     System.out.println("");
-    // }
-
+    // get all trips
     public List<Map<String, String>> getAllTrips(Connection connection , String tableName) throws SQLException {
-        String selectSQL = "SELECT * from " + tableName;
+        String selectSQL = "SELECT * from " + tableName + " ORDER BY id DESC";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(selectSQL);
         
@@ -265,7 +275,63 @@ public class DBConnection {
         return result;
     }
 
+
+    // check if a trip is available
+    public int isTripAvailable(String from, String to, String tripType, String tripCategory, String tripDate) {
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        Timestamp timestamp = Utilites.getFormattedDate(tripDate);
+        try {
+            String query = "SELECT * FROM trip WHERE from_location = ? AND to_location = ? AND trip_category = ? AND seat_type = ? AND start_time = ? AND available_seats > 0";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, from);
+            pstmt.setString(2, to);
+            pstmt.setString(3, tripCategory);
+            pstmt.setString(4, tripType);
+            pstmt.setTimestamp(5, timestamp);
+            
+            
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if(rs.next()) {
+                    int id = rs.getInt("id");
+                    db.disconnect();
+                    System.out.println("Trip available");
+                    return id;
+                }
+            }
+
+
+        } catch(SQLException e) {
+            db.disconnect();
+            e.printStackTrace();
+            System.out.println("Trip not available");
+            return 0;
+        }
+        db.disconnect();
+        return 0;
+    }
+
     public static void main(String[] args) {
 
+    }
+}
+
+
+class Utilites {
+    public static Timestamp getFormattedDate(String date) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; 
+        LocalDateTime localDateTime = LocalDateTime.parse(date, inputFormatter);
+
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateStr = localDateTime.format(outputFormatter);
+
+        LocalDateTime formattedDateTime = LocalDateTime.parse(formattedDateStr, outputFormatter);
+
+        Timestamp timestamp = Timestamp.valueOf(formattedDateTime);
+        
+        return timestamp;
     }
 }
