@@ -89,8 +89,8 @@ public class Refund extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        SaleForm saleform = new SaleForm();
-        saleform.setVisible(true);
+//        SaleForm saleform = new SaleForm(1);
+//        saleform.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void refundBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refundBTNActionPerformed

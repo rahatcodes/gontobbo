@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.gontobbo_app;
+import java.util.Map;
+
 import javax.swing.JOptionPane;
+
+import DBConnection.DBConnection;
 /**
  *
  * @author User
@@ -14,6 +18,10 @@ public class SaleForm extends javax.swing.JFrame {
      * Creates new form SaleForm
      */
     private int tripId;
+    private int seatPrice;
+    private int totalAmount;
+    private Map<String, String> tripDetails;
+
     public SaleForm(int tripId) {
         initComponents();
         this.tripId = tripId;
@@ -32,42 +40,23 @@ public class SaleForm extends javax.swing.JFrame {
         passangerName = new javax.swing.JTextField();
         phoneNo = new javax.swing.JTextField();
         nidNo = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         goBack = new com.k33ptoo.components.KButton();
-        jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        MediumRadioBTN = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         confirmTicketBTN = new com.k33ptoo.components.KButton();
         seatAmount = new javax.swing.JComboBox<>();
-        category = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        passangerName.setText(" ");
         getContentPane().add(passangerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 230, 30));
-
-        phoneNo.setText(" ");
         getContentPane().add(phoneNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 230, 30));
-
-        nidNo.setText(" ");
         getContentPane().add(nidNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 230, 30));
-
-        jLabel2.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("||");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
@@ -98,11 +87,6 @@ public class SaleForm extends javax.swing.JFrame {
         jLabel7.setText("NID No.");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("Category");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, -1, -1));
-
         goBack.setBorder(null);
         goBack.setForeground(new java.awt.Color(51, 51, 51));
         goBack.setText("Go HOME");
@@ -124,28 +108,10 @@ public class SaleForm extends javax.swing.JFrame {
         });
         getContentPane().add(goBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 670, 90, 40));
 
-        jLabel11.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel11.setText("Medium");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, 20));
-
         jLabel10.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setText("Seat");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, -1, 20));
-
-        buttonGroup1.add(MediumRadioBTN);
-        MediumRadioBTN.setText("BUS");
-        MediumRadioBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MediumRadioBTNActionPerformed(evt);
-            }
-        });
-        getContentPane().add(MediumRadioBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 440, -1, -1));
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("TRAIN");
-        getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, -1, 20));
 
         confirmTicketBTN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         confirmTicketBTN.setText("CONFIRM");
@@ -162,26 +128,17 @@ public class SaleForm extends javax.swing.JFrame {
 
         seatAmount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04" }));
         seatAmount.setBorder(new javax.swing.border.MatteBorder(null));
-        getContentPane().add(seatAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 230, 30));
-
-        category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "NON-AC" }));
-        category.setBorder(new javax.swing.border.MatteBorder(null));
-        getContentPane().add(category, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 230, 30));
+        seatAmount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seatAmountActionPerformed(evt);
+            }
+        });
+        getContentPane().add(seatAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 230, 30));
 
         jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("40");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("(TRAIN)");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
-
-        jLabel12.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel12.setText("40");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(51, 51, 51));
@@ -202,28 +159,65 @@ public class SaleForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_goBackActionPerformed
 
-    private void MediumRadioBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MediumRadioBTNActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MediumRadioBTNActionPerformed
-
     private void confirmTicketBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmTicketBTNActionPerformed
-        // TODO add your handling code here:
-//        JOptionPane.showConfirmDialog(null, "ticket No.: 2561. Total Price: 552 BDT,"
-//                + "Trip Confirmed.");
-       int check_status = JOptionPane.showConfirmDialog(null, 
-                "ticket No.: 2561. Total Price: 552 BDT. Confirm Ticket?", "Ticket Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-       
-       System.out.println(check_status);
-       if(check_status ==0){
-           TicketDetails tdetails = new TicketDetails();
-           tdetails.setVisible(true);
-       }
+    //    int check_status = JOptionPane.showConfirmDialog(null, 
+    //             "ticket No.: 2561. Total Price: 552 BDT. Confirm Ticket?", "Ticket Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        
+        String name = passangerName.getText();
+        String phone = phoneNo.getText();
+        String nid = nidNo.getText();
+
+        if(name.equals("") || phone.equals("") || nid.equals("")){
+            JOptionPane.showMessageDialog(null, "Please fill all the fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    
+        int check_status = JOptionPane.showConfirmDialog(null, 
+                    "ticket No.: " + this.tripId + " Total Price: " + this.totalAmount + " BDT. Confirm Ticket?", "Ticket Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        System.out.println(check_status);
+        if(check_status ==0){
+            this.tripDetails.put("name", name);
+            this.tripDetails.put("phone", phone);
+            this.tripDetails.put("nid", nid);
+            this.tripDetails.put("totalSeats", (String) seatAmount.getSelectedItem());
+            this.tripDetails.put("totalAmount", Integer.toString(this.totalAmount));
+
+            DBConnection db = new DBConnection();
+            int bookingId = db.createBooking(this.tripDetails);
+            if(bookingId == 0) {
+                JOptionPane.showMessageDialog(null, "Error in booking. Something went wrong!!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else {
+                // JOptionPane.showMessageDialog(null, "Booking Successful. Your Booking ID: " + bookingId, "Success", JOptionPane.INFORMATION_MESSAGE);
+                this.tripDetails.put("bookingId", Integer.toString(bookingId));
+                TicketDetails tdetails = new TicketDetails(this.tripDetails);
+                tdetails.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_confirmTicketBTNActionPerformed
 
     private void jLabel4AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel4AncestorAdded
         // TODO add your handling code here:
         System.out.println(this.tripId);
+        DBConnection db = new DBConnection();
+        Map<String, String> trip = db.getTripDetails(this.tripId);
+        jLabel3.setText(trip.get("available_seats"));
+        jLabel13.setText("(" + trip.get("type") + ") | " + trip.get("category"));
+        this.seatPrice = Integer.parseInt(trip.get("price"));
+        this.totalAmount = this.seatPrice * Integer.parseInt((String) seatAmount.getSelectedItem());
+        this.tripDetails = trip;
+        System.out.println("Seat Price: " + this.seatPrice + " Total Amount: " + this.totalAmount);
+        
     }//GEN-LAST:event_jLabel4AncestorAdded
+
+    private void seatAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seatAmountActionPerformed
+        this.totalAmount = this.seatPrice * Integer.parseInt((String) seatAmount.getSelectedItem());
+        if(Integer.parseInt((String) seatAmount.getSelectedItem()) > Integer.parseInt(jLabel3.getText())){
+            JOptionPane.showMessageDialog(null, "Not enough seats available", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        System.out.println("Seat Price: " + this.seatPrice + " Total Amount: " + this.totalAmount);
+    }//GEN-LAST:event_seatAmountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,25 +255,17 @@ public class SaleForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton MediumRadioBTN;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> category;
     private com.k33ptoo.components.KButton confirmTicketBTN;
     private com.k33ptoo.components.KButton goBack;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField nidNo;
     private javax.swing.JTextField passangerName;
     private javax.swing.JTextField phoneNo;
