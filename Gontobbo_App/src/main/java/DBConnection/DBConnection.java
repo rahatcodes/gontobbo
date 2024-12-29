@@ -14,7 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +26,7 @@ import java.util.Map;
  *
  * @author DCL
  */
-public class DBConnection {
+public class DBConnection extends Utilities {
     private Connection connection;
 
     // create new db if db doesn't exist and create the tables
@@ -169,7 +171,7 @@ public class DBConnection {
         System.out.println(date);
         
         try {
-            Timestamp timestamp = Utilites.getFormattedDate(date);
+            Timestamp timestamp = getFormattedDate(date);
             System.out.println(timestamp);
             String query = "INSERT INTO trip (from_location, to_location, start_time, price, total_seats, available_seats, seat_type, trip_category) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             
@@ -205,7 +207,7 @@ public class DBConnection {
         Connection con = db.getConnection();
         
         try {
-            Timestamp timestamp = Utilites.getFormattedDate(date);
+            Timestamp timestamp = getFormattedDate(date);
             String query = "UPDATE trip SET from_location = ?, to_location = ?, start_time = ?, price = ?, seat_type = ?, trip_category = ? WHERE id = ? ORDER BY id ASC LIMIT 1";
             
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -363,8 +365,8 @@ public class DBConnection {
         Connection con = db.getConnection();
         
         try {
-            String query = "SELECT (id, passenger_name, passenger_phone, start_time) FROM booking ORDER BY id DESC JOIN trip ON booking.trip_id = trip.id";
-            
+            // String query = "SELECT (id, passenger_name, passenger_phone, start_time) FROM booking ORDER BY id DESC JOIN trip ON booking.trip_id = trip.id";
+            String query = "SELECT booking.id, passenger_name, passenger_phone, start_time, total_price FROM booking JOIN trip ON booking.trip_id = trip.id ORDER BY booking.id DESC";
             PreparedStatement pstmt = con.prepareStatement(query);
             
             try(ResultSet rs = pstmt.executeQuery()) {
@@ -375,6 +377,7 @@ public class DBConnection {
                     row.put("name", rs.getString("passenger_name"));
                     row.put("phone", rs.getString("passenger_phone"));
                     row.put("date", rs.getString("start_time"));
+                    row.put("price", rs.getString("total_price"));
                     result.add(row);
                 }
                 db.disconnect();
@@ -388,13 +391,54 @@ public class DBConnection {
         return null;
     }
 
+
+    // refund booking
+    public boolean refundBooking(int bookingId) {
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        
+        try {
+            String query = "SELECT * FROM booking WHERE id = ?";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, bookingId);
+            
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if(rs.next()) {
+                    int tripId = rs.getInt("trip_id");
+                    int totalSeats = rs.getInt("total_seats");
+                    
+                    pstmt = con.prepareStatement("DELETE FROM booking WHERE id = ?");
+                    pstmt.setInt(1, bookingId);
+                    pstmt.executeUpdate();
+                    
+                    pstmt = con.prepareStatement("UPDATE trip SET available_seats = available_seats + ? WHERE id = ?");
+                    pstmt.setInt(1, totalSeats);
+                    pstmt.setInt(2, tripId);
+                    pstmt.executeUpdate();
+                    
+                    System.out.println("Booking refunded successfully");
+                    db.disconnect();
+                    return true;
+                }
+            }
+        } catch(SQLException e) {
+            db.disconnect();
+            e.printStackTrace();
+        }
+        db.disconnect();
+        return false;
+    }
+
     // check if a trip is available
     public int isTripAvailable(String from, String to, String tripType, String tripCategory, String tripDate) {
         DBConnection db = new DBConnection();
         db.connect();
         
         Connection con = db.getConnection();
-        Timestamp timestamp = Utilites.getFormattedDate(tripDate);
+        Timestamp timestamp = getFormattedDate(tripDate);
         try {
             String query = "SELECT * FROM trip WHERE from_location = ? AND to_location = ? AND trip_category = ? AND seat_type = ? AND start_time = ? AND available_seats > 0";
             
@@ -432,7 +476,7 @@ public class DBConnection {
 }
 
 
-class Utilites {
+abstract class Utilities {
     public static Timestamp getFormattedDate(String date) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; 
         LocalDateTime localDateTime = LocalDateTime.parse(date, inputFormatter);
@@ -445,5 +489,24 @@ class Utilites {
         Timestamp timestamp = Timestamp.valueOf(formattedDateTime);
         
         return timestamp;
+    }
+
+    public static String timeStampConverter(String timestampStr) {
+        // Input timestamp in milliseconds
+        
+        long timestamp = Long.parseLong(timestampStr);
+
+        // Convert timestamp to LocalDateTime
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
+
+        // Define the output formatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // Format the LocalDateTime to the desired output format
+        String formattedDateTime = dateTime.format(formatter);
+
+        // Print the formatted date-time string
+        System.out.println("Formatted Date-Time: " + formattedDateTime);
+        return formattedDateTime;
     }
 }
