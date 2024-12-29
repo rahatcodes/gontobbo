@@ -268,13 +268,13 @@ public void showLineChart(){
 
     private void addTripBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTripBTNActionPerformed
         // TODO add your handling code here:
-        AddTrip addTrip = new AddTrip();
+        AddTrip addTrip = new AddTrip(AdminDboard.this);
         addTrip.setVisible(true);
     }//GEN-LAST:event_addTripBTNActionPerformed
 
     private void updateTripBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTripBTNActionPerformed
         // TODO add your handling code here:
-        UpdateTrip update = new UpdateTrip();
+        UpdateTrip update = new UpdateTrip(AdminDboard.this);
         update.setVisible(true);
     }//GEN-LAST:event_updateTripBTNActionPerformed
 
@@ -298,6 +298,7 @@ public void showLineChart(){
 
         if(removedSuccessfully) {
             JOptionPane.showMessageDialog(null, "Trip Removed Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            this.renderTableData();
         } else {
             JOptionPane.showMessageDialog(null, "Failed to remove trip", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -314,6 +315,31 @@ public void showLineChart(){
   
     private void onAddAdminDboard(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_onAddAdminDboard
         // TODO add your handling code here:
+        this.renderTableData();
+        
+    }//GEN-LAST:event_onAddAdminDboard
+
+    public static String timeStampConverter(String timestampStr) {
+        // Input timestamp in milliseconds
+        
+        long timestamp = Long.parseLong(timestampStr);
+
+        // Convert timestamp to LocalDateTime
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
+
+        // Define the output formatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // Format the LocalDateTime to the desired output format
+        String formattedDateTime = dateTime.format(formatter);
+
+        // Print the formatted date-time string
+        System.out.println("Formatted Date-Time: " + formattedDateTime);
+        return formattedDateTime;
+    }
+
+    public void renderTableData() {
+        System.out.println("AdminDboard");
         DBConnection db = new DBConnection();
         db.connect();
 
@@ -341,26 +367,6 @@ public void showLineChart(){
             ((javax.swing.table.DefaultTableModel) jTable1.getModel()).addRow(row);
         }
         db.disconnect();
-        
-    }//GEN-LAST:event_onAddAdminDboard
-
-    public static String timeStampConverter(String timestampStr) {
-        // Input timestamp in milliseconds
-        
-        long timestamp = Long.parseLong(timestampStr);
-
-        // Convert timestamp to LocalDateTime
-        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
-
-        // Define the output formatter
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        // Format the LocalDateTime to the desired output format
-        String formattedDateTime = dateTime.format(formatter);
-
-        // Print the formatted date-time string
-        System.out.println("Formatted Date-Time: " + formattedDateTime);
-        return formattedDateTime;
     }
 
     /**
@@ -393,7 +399,8 @@ public void showLineChart(){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminDboard().setVisible(true);
+                AdminDboard adminDboard = new AdminDboard();
+                adminDboard.setVisible(true);
             }
         });
     }

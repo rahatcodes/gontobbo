@@ -13,8 +13,10 @@ public class SaleForm extends javax.swing.JFrame {
     /**
      * Creates new form SaleForm
      */
-    public SaleForm() {
+    private int tripId;
+    public SaleForm(int tripId) {
         initComponents();
+        this.tripId = tripId;
     }
 
     /**
@@ -70,6 +72,15 @@ public class SaleForm extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("AVAILABLE TICKETS: ");
+        jLabel4.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jLabel4AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
@@ -106,7 +117,6 @@ public class SaleForm extends javax.swing.JFrame {
         goBack.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         goBack.setkHoverStartColor(new java.awt.Color(102, 153, 255));
         goBack.setkStartColor(new java.awt.Color(0, 204, 204));
-        goBack.setOpaque(false);
         goBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackActionPerformed(evt);
@@ -210,6 +220,11 @@ public class SaleForm extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_confirmTicketBTNActionPerformed
 
+    private void jLabel4AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel4AncestorAdded
+        // TODO add your handling code here:
+        System.out.println(this.tripId);
+    }//GEN-LAST:event_jLabel4AncestorAdded
+
     /**
      * @param args the command line arguments
      */
@@ -238,11 +253,11 @@ public class SaleForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SaleForm().setVisible(true);
-            }
-        });
+        // java.awt.EventQueue.invokeLater(new Runnable() {
+        //     public void run() {
+        //         new SaleForm().setVisible(true);
+        //     }
+        // });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
