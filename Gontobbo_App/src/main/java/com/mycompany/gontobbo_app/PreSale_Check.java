@@ -4,6 +4,13 @@
  */
 package com.mycompany.gontobbo_app;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.JOptionPane;
+
+import DBConnection.DBConnection;
+
 /**
  *
  * @author User
@@ -128,9 +135,71 @@ public class PreSale_Check extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tripCheckBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tripCheckBTNActionPerformed
-        // TODO add your handling code here:
-        SaleForm saleform = new SaleForm();
-        saleform.setVisible(true);
+        String from;
+        String to;
+        String tripType;
+        String tripCategory;
+        String tripDate;
+
+        try {
+            from = dropDownFrom.getSelectedItem().toString();
+            to = dropDownTo.getSelectedItem().toString();
+            tripType = BUS.isSelected() ? "BUS" : "TRAIN";
+            tripCategory = category.getSelectedItem().toString();
+            tripDate = date.toString();
+
+            System.out.println(date.getDatePicker().getDate().toString());
+            System.out.println(date.getTimePicker().getTime().toString());
+            if(date.getDatePicker().getDate().toString().equals("")) {
+                throw new Exception();
+            }
+
+            if(from.equals("") || to.equals("") || tripDate.equals("") || tripType.equals("") || tripCategory.equals("") ) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Please fill in all the fields correctly. Check if you have entered an incorrect date", "Error", JOptionPane.ERROR_MESSAGE);
+
+            System.out.println("Please fill all the fields");
+            return;
+        }
+
+        // check if from and to are the same
+        if(from.equals(to)) {
+            JOptionPane.showMessageDialog(null, "From location and to location cannot be the same", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("From location and to location cannot be the same");
+            return;
+        }
+
+        // check if trip date is in the past
+        LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime tripDateTime = LocalDateTime.parse(tripDate, formatter);
+
+        if(!tripDateTime.isAfter(now)) {
+            JOptionPane.showMessageDialog(null, "Trip date cannot be in the past", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Trip date cannot be in the past");
+            return;
+        }
+
+
+
+        DBConnection db = new DBConnection();
+        int ticketId = db.isTripAvailable(from, to, tripType, tripCategory, tripDate);
+
+        if(ticketId == 0) {
+            JOptionPane.showMessageDialog(null, "No trips available for the given criteria", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("No trips available for the given criteria");
+            return;
+        } else {
+            System.out.println("Trip available " + ticketId);
+            SaleForm saleform = new SaleForm(ticketId);
+            saleform.setVisible(true);
+            dispose();
+        }
+
     }//GEN-LAST:event_tripCheckBTNActionPerformed
 
     private void BUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUSActionPerformed
