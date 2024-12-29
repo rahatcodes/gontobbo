@@ -4,6 +4,13 @@
  */
 package com.mycompany.gontobbo_app;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.JOptionPane;
+
+import DBConnection.DBConnection;
+
 /**
  *
  * @author User
@@ -13,8 +20,10 @@ public class UpdateTrip extends javax.swing.JFrame {
     /**
      * Creates new form UpdateTrip
      */
-    public UpdateTrip() {
+    private AdminDboard adminDboard;
+    public UpdateTrip(AdminDboard adminDboard) {
         initComponents();
+        this.adminDboard = adminDboard;
     }
 
     /**
@@ -52,6 +61,15 @@ public class UpdateTrip extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                jPanel1AncestorRemoved(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("UPDATE TRIP");
@@ -110,13 +128,13 @@ public class UpdateTrip extends javax.swing.JFrame {
         jPanel1.add(tripID, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 250, 30));
 
         buttonGroup1.add(TRAIN);
-        TRAIN.setText("Train");
         TRAIN.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        TRAIN.setText("Train");
         jPanel1.add(TRAIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, -1, -1));
 
         buttonGroup1.add(BUS);
-        BUS.setText("Bus");
         BUS.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
+        BUS.setText("Bus");
         BUS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BUSActionPerformed(evt);
@@ -158,13 +176,80 @@ public class UpdateTrip extends javax.swing.JFrame {
 
     private void updateTripBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTripBTNActionPerformed
         // TODO add your handling code here:
-        dispose();
+        int id;
+        String from;
+        String to;
+        String tripDate;
+        String tripType;
+        String tripCategory;
+        double price;
+        try {
+            id = Integer.parseInt(tripID.getText());
+            from = fromField.getSelectedItem().toString();
+            to = toField.getSelectedItem().toString();
+            tripDate = date.toString();
+            tripType = BUS.isSelected() ? "BUS" : "TRAIN";
+            tripCategory = category.getSelectedItem().toString();
+            price = Double.parseDouble(unitPrice.getText());
+
+            System.out.println(date.getDatePicker().getDate().toString());
+            System.out.println(date.getTimePicker().getTime().toString());
+            if(date.getDatePicker().getDate().toString().equals("")) {
+                throw new Exception();
+            }
+
+            if(from.equals("") || to.equals("") || tripDate.equals("") || tripType.equals("") || tripCategory.equals("") || price == 0) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Please fill in all the fields correctly. Check if you have entered an incorrect date or price.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Please fill all the fields");
+            return;
+        }
+
+        // check if from and to are the same
+        if(from.equals(to)) {
+            JOptionPane.showMessageDialog(null, "From location and to location cannot be the same", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("From location and to location cannot be the same");
+            return;
+        }
+
+
+        // check if trip date is in the past
+        LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime tripDateTime = LocalDateTime.parse(tripDate, formatter);
+
+        if(!tripDateTime.isAfter(now)) {
+            JOptionPane.showMessageDialog(null, "Trip date cannot be in the past", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Trip date cannot be in the past");
+            return;
+        }
+
+
+        DBConnection db = new DBConnection();
+        boolean updatedSuccessfully = db.updateTrip(id, from, to, tripDate, tripType, tripCategory, price);
+
+        if (updatedSuccessfully) {
+            JOptionPane.showMessageDialog(null, "Trip updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to update trip", "Error", JOptionPane.ERROR_MESSAGE);
+            dispose();
+        }
     }//GEN-LAST:event_updateTripBTNActionPerformed
 
     private void clodeBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clodeBTNActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_clodeBTNActionPerformed
+
+    private void jPanel1AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1AncestorRemoved
+        // render updated data in the table
+        this.adminDboard.renderTableData();
+    }//GEN-LAST:event_jPanel1AncestorRemoved
 
     /**
      * @param args the command line arguments
@@ -194,11 +279,11 @@ public class UpdateTrip extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpdateTrip().setVisible(true);
-            }
-        });
+        // java.awt.EventQueue.invokeLater(new Runnable() {
+        //     public void run() {
+        //         new UpdateTrip().setVisible(true);
+        //     }
+        // });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
