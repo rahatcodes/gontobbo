@@ -18,12 +18,14 @@ import DBConnection.DBConnection;
 public class AddTrip extends javax.swing.JFrame {
 
     private boolean tripIdFound;
-
+    private AdminDboard adminDboard;
     /**
      * Creates new form AddTrip
      */
-    public AddTrip() {
+
+    public AddTrip(AdminDboard adminDboard) {
         initComponents();
+        this.adminDboard = adminDboard;
     }
 
     /**
@@ -82,6 +84,15 @@ public class AddTrip extends javax.swing.JFrame {
         getContentPane().add(clodeBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 40, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                jPanel1AncestorRemoved(evt);
+            }
+        });
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel1MouseEntered(evt);
@@ -279,6 +290,12 @@ public class AddTrip extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_clodeBTNActionPerformed
 
+    private void jPanel1AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1AncestorRemoved
+        // re-render the table data
+        System.out.println("Hello closed addtrip");
+        this.adminDboard.renderTableData();
+    }//GEN-LAST:event_jPanel1AncestorRemoved
+
     /**
      * @param args the command line arguments
      */
@@ -307,11 +324,11 @@ public class AddTrip extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddTrip().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new AddTrip().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

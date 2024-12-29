@@ -86,6 +86,7 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jPanel1AncestorRemoved"/>
         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel1MouseEntered"/>
       </Events>
       <Constraints>
