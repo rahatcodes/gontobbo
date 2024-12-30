@@ -277,6 +277,27 @@ public class DBConnection extends Utilities {
         return result;
     }
 
+    // get all trips limit 5
+    public List<Map<String, String>> getAllTrips(Connection connection , String tableName, int limit) throws SQLException {
+        String selectSQL = "SELECT * from " + tableName + " ORDER BY id DESC" + " LIMIT " + limit;
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(selectSQL);
+        
+        List<Map<String, String>> result = new ArrayList<>();
+
+        while(rs.next()) {
+            Map<String, String> row = new HashMap<>();
+            row.put("id", rs.getString("id"));
+            row.put("from", rs.getString("from_location"));
+            row.put("to", rs.getString("to_location"));
+            row.put("start_time", rs.getString("start_time"));
+            row.put("type", rs.getString("trip_category"));
+            row.put("seat", rs.getString("seat_type"));
+            result.add(row);
+        }
+        return result;
+    }
+
 
     // get trip details
     public Map<String, String> getTripDetails(int tripId) {
