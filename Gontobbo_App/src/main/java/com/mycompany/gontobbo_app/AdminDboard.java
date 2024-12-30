@@ -24,6 +24,7 @@ import org.jfree.data.general.DefaultPieDataset;
 import DBConnection.DBConnection;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -287,18 +288,46 @@ public void showLineChart(){
             JOptionPane.showMessageDialog(null, "Invalid Trip Id", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        DBConnection db = new DBConnection();
-        boolean removedSuccessfully = db.removeTrip(id);
-
-        if(removedSuccessfully) {
-            JOptionPane.showMessageDialog(null, "Trip Removed Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            this.renderTableData();
-        } else {
-            JOptionPane.showMessageDialog(null, "Failed to remove trip", "Error", JOptionPane.ERROR_MESSAGE);
-        }
         
-        System.out.println(tripID);//use this to delete from database
+        
+         // Get TableModel
+        TableModel model = this.jTable1.getModel();
+
+        // Read rows
+        int isFound = 0;
+        for (int row = 0; row < model.getRowCount(); row++) {
+            for (int col = 0; col < model.getColumnCount(); col++) {
+                Object value = model.getValueAt(row, col);
+                System.out.println("Row " + row + " Column " + col + ": " + value);
+                if(col == 0) {
+                    if(value.equals(tripID)) {
+                        isFound = 1;
+                        break;
+                    }
+                }
+            }
+            if(isFound == 1) {
+                break;
+            }
+        }
+ 
+        
+        if(isFound == 1) {
+            DBConnection db = new DBConnection();
+            boolean removedSuccessfully = db.removeTrip(id);
+
+            if(removedSuccessfully) {
+                JOptionPane.showMessageDialog(null, "Trip Removed Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                this.renderTableData();
+            } else {
+                JOptionPane.showMessageDialog(null, "Failed to remove trip", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            System.out.println(tripID);//use this to delete from database
+        } else {
+            JOptionPane.showMessageDialog(null, "Trip Id not found", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }        
     }//GEN-LAST:event_rmvTripBTNActionPerformed
 
     private void goBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackActionPerformed
@@ -343,6 +372,10 @@ public void showLineChart(){
             ((javax.swing.table.DefaultTableModel) jTable1.getModel()).addRow(row);
         }
         db.disconnect();
+    }
+    
+    public javax.swing.JTable getTable() {
+        return jTable1;
     }
 
     /**
