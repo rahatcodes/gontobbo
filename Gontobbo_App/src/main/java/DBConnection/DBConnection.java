@@ -208,7 +208,7 @@ public class DBConnection extends Utilities {
         
         try {
             Timestamp timestamp = getFormattedDate(date);
-            String query = "UPDATE trip SET from_location = ?, to_location = ?, start_time = ?, price = ?, seat_type = ?, trip_category = ? WHERE id = ? ORDER BY id ASC LIMIT 1";
+            String query = "UPDATE trip SET from_location = ?, to_location = ?, start_time = ?, price = ?, seat_type = ?, trip_category = ? WHERE id = ?;";
             
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, from);
@@ -470,6 +470,40 @@ public class DBConnection extends Utilities {
         return 0;
     }
 
+
+    public int[] getMonthlySalesByCategory() {
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        
+        try {
+            // String query = "SELECT SUM(total_price) as total, seat_type FROM booking JOIN trip ON booking.trip_id = trip.id GROUP BY trip_category";
+            String query = "SELECT "
+                + "SUM(CASE WHEN t.trip_category = 'bus' THEN b.total_price ELSE 0 END) AS bus_sales, "
+                + "SUM(CASE WHEN t.trip_category = 'train' THEN b.total_price ELSE 0 END) AS train_sales, "
+                + "SUM(b.total_price) AS total_sales "
+                + "FROM booking b "
+                + "JOIN trip t ON b.trip_id = t.id;";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            
+            try(ResultSet rs = pstmt.executeQuery()) {
+                int[] sales = new int[3];
+                while(rs.next()) {
+                    sales[0] = rs.getInt("bus_sales");
+                    sales[1] = rs.getInt("train_sales");
+                    sales[2] = rs.getInt("total_sales");
+                }
+                db.disconnect();
+                return sales;
+            }
+        } catch(SQLException e) {
+            db.disconnect();
+            e.printStackTrace();
+            return null;
+        }
+    }
     public static void main(String[] args) {
 
     }
