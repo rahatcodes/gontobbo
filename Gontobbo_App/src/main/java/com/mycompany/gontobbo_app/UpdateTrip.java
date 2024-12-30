@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 import DBConnection.DBConnection;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -227,18 +228,45 @@ public class UpdateTrip extends javax.swing.JFrame {
             System.out.println("Trip date cannot be in the past");
             return;
         }
+        
+        // Get TableModel
+        TableModel model = this.adminDboard.getTable().getModel();
 
-
-        DBConnection db = new DBConnection();
-        boolean updatedSuccessfully = db.updateTrip(id, from, to, tripDate, tripType, tripCategory, price);
-
-        if (updatedSuccessfully) {
-            JOptionPane.showMessageDialog(null, "Trip updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Failed to update trip", "Error", JOptionPane.ERROR_MESSAGE);
-            dispose();
+        // Read rows
+        int isFound = 0;
+        for (int row = 0; row < model.getRowCount(); row++) {
+            for (int col = 0; col < model.getColumnCount(); col++) {
+                Object value = model.getValueAt(row, col);
+                System.out.println("Row " + row + " Column " + col + ": " + value);
+                if(col == 0) {
+                    if(value.equals(tripID.getText())) {
+                        isFound = 1;
+                        break;
+                    }
+                }
+            }
+            if(isFound == 1) {
+                break;
+            }
         }
+ 
+        
+        if(isFound == 1) {
+            DBConnection db = new DBConnection();
+            boolean updatedSuccessfully = db.updateTrip(id, from, to, tripDate, tripType, tripCategory, price);
+
+            if (updatedSuccessfully) {
+                JOptionPane.showMessageDialog(null, "Trip updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Failed to update trip", "Error", JOptionPane.ERROR_MESSAGE);
+                dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Trip Id not found", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+
     }//GEN-LAST:event_updateTripBTNActionPerformed
 
     private void clodeBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clodeBTNActionPerformed
