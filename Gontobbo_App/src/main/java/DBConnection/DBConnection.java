@@ -525,6 +525,57 @@ public class DBConnection extends Utilities {
             return null;
         }
     }
+
+    public int[] get12MonthSaleHistory() {
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        
+        try {
+            String query = "SELECT "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '01' THEN b.total_price ELSE 0 END) AS jan_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '02' THEN b.total_price ELSE 0 END) AS feb_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '03' THEN b.total_price ELSE 0 END) AS mar_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '04' THEN b.total_price ELSE 0 END) AS apr_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '05' THEN b.total_price ELSE 0 END) AS may_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '06' THEN b.total_price ELSE 0 END) AS jun_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '07' THEN b.total_price ELSE 0 END) AS jul_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '08' THEN b.total_price ELSE 0 END) AS aug_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '09' THEN b.total_price ELSE 0 END) AS sep_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '10' THEN b.total_price ELSE 0 END) AS oct_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '11' THEN b.total_price ELSE 0 END) AS nov_sales, "
+                + "SUM(CASE WHEN strftime('%m', b.created_at) = '12' THEN b.total_price ELSE 0 END) AS dec_sales "
+                + "FROM booking b;";
+            
+            PreparedStatement pstmt = con.prepareStatement(query);
+            
+            try(ResultSet rs = pstmt.executeQuery()) {
+                int[] sales = new int[12];
+                while(rs.next()) {
+                    sales[0] = rs.getInt("jan_sales");
+                    sales[1] = rs.getInt("feb_sales");
+                    sales[2] = rs.getInt("mar_sales");
+                    sales[3] = rs.getInt("apr_sales");
+                    sales[4] = rs.getInt("may_sales");
+                    sales[5] = rs.getInt("jun_sales");
+                    sales[6] = rs.getInt("jul_sales");
+                    sales[7] = rs.getInt("aug_sales");
+                    sales[8] = rs.getInt("sep_sales");
+                    sales[9] = rs.getInt("oct_sales");
+                    sales[10] = rs.getInt("nov_sales");
+                    sales[11] = rs.getInt("dec_sales");
+                }
+                db.disconnect();
+                return sales;
+            }
+        } catch(SQLException e) {
+            db.disconnect();
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static void main(String[] args) {
 
     }
