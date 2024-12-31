@@ -277,6 +277,7 @@ public class UpdateTrip extends javax.swing.JFrame {
     private void jPanel1AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1AncestorRemoved
         // render updated data in the table
         this.adminDboard.renderTableData();
+        this.adminDboard.showPieChart();
     }//GEN-LAST:event_jPanel1AncestorRemoved
 
     /**
