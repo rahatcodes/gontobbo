@@ -294,6 +294,7 @@ public class AddTrip extends javax.swing.JFrame {
         // re-render the table data
         System.out.println("Hello closed addtrip");
         this.adminDboard.renderTableData();
+        this.adminDboard.showPieChart();
     }//GEN-LAST:event_jPanel1AncestorRemoved
 
     /**

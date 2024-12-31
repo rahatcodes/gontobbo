@@ -501,8 +501,8 @@ public class DBConnection extends Utilities {
         try {
             // String query = "SELECT SUM(total_price) as total, seat_type FROM booking JOIN trip ON booking.trip_id = trip.id GROUP BY trip_category";
             String query = "SELECT "
-                + "SUM(CASE WHEN t.trip_category = 'bus' THEN b.total_price ELSE 0 END) AS bus_sales, "
-                + "SUM(CASE WHEN t.trip_category = 'train' THEN b.total_price ELSE 0 END) AS train_sales, "
+                + "SUM(CASE WHEN t.seat_type = 'BUS' THEN b.total_price ELSE 0 END) AS bus_sales, "
+                + "SUM(CASE WHEN t.seat_type = 'TRAIN' THEN b.total_price ELSE 0 END) AS train_sales, "
                 + "SUM(b.total_price) AS total_sales "
                 + "FROM booking b "
                 + "JOIN trip t ON b.trip_id = t.id;";

@@ -41,22 +41,42 @@ public final class AdminDboard extends javax.swing.JFrame {
     }
 public void showPieChart(){
         
-        //create dataset
-      DefaultPieDataset barDataset = new DefaultPieDataset( );
-      barDataset.setValue("BUS" , Double.valueOf(45));  
-      barDataset.setValue("TRAIN" , Double.valueOf(30));   
-      barDataset.setValue("REFUND" , Double.valueOf(25));    
+            //create dataset
+        // DefaultPieDataset barDataset = new DefaultPieDataset( );
+        // barDataset.setValue("BUS" , Double.valueOf(80));  
+        // barDataset.setValue("TRAIN" , Double.valueOf(20));    
 //      barDataset.setValue("Nokia Lumia" , Double.valueOf(10));  
-      
+        DBConnection db = new DBConnection();
+                
+        int arr[] = db.getMonthlySalesByCategory();
+
+        if(arr == null) {
+            arr = new int[3];
+            arr[0] = 0;
+            arr[1] = 0;
+            arr[2] = 0;
+        }
+
+        for(int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i] + " index " + i);
+        }
+
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        if(arr[2] != 0) {
+            dataset.setValue("BUS", Double.valueOf(arr[0] * 100 / arr[2]));
+            dataset.setValue("TRAIN", Double.valueOf(arr[1] * 100 / arr[2]));
+        } else {
+            dataset.setValue("BUS", 50);
+            dataset.setValue("TRAIN", 50);
+        }
       //create chart
-       JFreeChart piechart = ChartFactory.createPieChart("Monthly sales",barDataset, false,true,false);//explain
+       JFreeChart piechart = ChartFactory.createPieChart("Monthly sales",dataset, false,true,false);//explain
       
         PiePlot piePlot =(PiePlot) piechart.getPlot();
       
        //changing pie chart blocks colors
        piePlot.setSectionPaint("BUS", new Color(255,255,102));
         piePlot.setSectionPaint("TRAIN", new Color(102,255,102));
-        piePlot.setSectionPaint("REFFUND", new Color(255,102,153));
 //        piePlot.setSectionPaint("Nokia Lumia", new Color(0,204,204));
       
        
@@ -344,6 +364,12 @@ public void showLineChart(){
         }
         db.disconnect();
     }
+
+    // public void renderMonthlySalesPie() {
+        
+
+        
+    // }
 
     /**
      * @param args the command line arguments
