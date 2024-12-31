@@ -93,12 +93,19 @@ public void showPieChart(){
 public void showLineChart(){
         //create dataset for the graph
          DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(200, "Amount", "january");
-        dataset.setValue(150, "Amount", "february");
-        dataset.setValue(18, "Amount", "march");
-        dataset.setValue(100, "Amount", "april");
-        dataset.setValue(80, "Amount", "may");
-        dataset.setValue(250, "Amount", "june");
+         DBConnection db = new DBConnection();
+        int arr[] = db.get12MonthSaleHistory();
+        if(arr == null) {
+            arr = new int[12];
+            for(int i = 0; i < 12; i++) {
+                arr[i] = 0;
+            }
+        }
+        String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        for(int i = 0; i < 12; i++) {
+            System.out.println(arr[i] + " index " + months[i]);
+            dataset.setValue(arr[i], "amount", months[i]);
+        }
         
         //create chart
         JFreeChart linechart = ChartFactory.createLineChart("Yearly Sale","monthly","amount", 
