@@ -280,7 +280,7 @@ public class AddTrip extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!this.tripIdFound) {
             DBConnection db = new DBConnection();
-            int newTripId = db.getNewTripId() + 1;
+            int newTripId = db.getNewTripId();
             tripID.setText(Integer.toString(newTripId));
         }
     }//GEN-LAST:event_jPanel1MouseEntered

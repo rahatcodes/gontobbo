@@ -164,18 +164,21 @@ public class SaleForm extends javax.swing.JFrame {
     private void confirmTicketBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmTicketBTNActionPerformed
     //    int check_status = JOptionPane.showConfirmDialog(null, 
     //             "ticket No.: 2561. Total Price: 552 BDT. Confirm Ticket?", "Ticket Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-        
+    
         String name = passangerName.getText();
         String phone = phoneNo.getText();
         String nid = nidNo.getText();
-
+        
         if(name.equals("") || phone.equals("") || nid.equals("")){
             JOptionPane.showMessageDialog(null, "Please fill all the fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
     
+        DBConnection db = new DBConnection();   
+        int nextTicketId = db.getNewRowId("booking");
+
         int check_status = JOptionPane.showConfirmDialog(null, 
-                    "ticket No.: " + this.tripId + " Total Price: " + this.totalAmount + " BDT. Confirm Ticket?", "Ticket Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    "ticket No.: " + nextTicketId + " Total Price: " + this.totalAmount + " BDT. Confirm Ticket?", "Ticket Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
         System.out.println(check_status);
         if(check_status ==0){
             this.tripDetails.put("name", name);
@@ -184,7 +187,6 @@ public class SaleForm extends javax.swing.JFrame {
             this.tripDetails.put("totalSeats", (String) seatAmount.getSelectedItem());
             this.tripDetails.put("totalAmount", Integer.toString(this.totalAmount));
 
-            DBConnection db = new DBConnection();
             int bookingId = db.createBooking(this.tripDetails);
             if(bookingId == 0) {
                 JOptionPane.showMessageDialog(null, "Error in booking. Something went wrong!!", "Error", JOptionPane.ERROR_MESSAGE);
