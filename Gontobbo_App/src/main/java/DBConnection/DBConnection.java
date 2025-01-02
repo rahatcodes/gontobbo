@@ -154,6 +154,7 @@ public class DBConnection extends Utilities {
             
             try(ResultSet rs = pstmt.executeQuery()) {
                 tripId = rs.getInt("seq");
+                tripId++;
             }
             
         } catch(SQLException e) {
@@ -165,6 +166,32 @@ public class DBConnection extends Utilities {
         return tripId;
     }
     
+
+    public int getNewRowId(String tableName) {
+        int rowId = 0;
+        DBConnection db = new DBConnection();
+        db.connect();
+        
+        Connection con = db.getConnection();
+        try {
+            String query = "SELECT seq FROM sqlite_sequence WHERE name = ?";
+
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, tableName);
+            
+            try(ResultSet rs = pstmt.executeQuery()) {
+                rowId = rs.getInt("seq");
+                rowId++;
+            }
+            
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        
+        db.disconnect();
+        
+        return rowId;
+    }
     
     // create new trip
     public boolean createTrip(String from, String to, String date, String type, String category, double price) {
