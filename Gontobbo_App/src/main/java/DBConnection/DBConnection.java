@@ -351,7 +351,7 @@ public class DBConnection extends Utilities {
             pstmt.setString(2, tripDetails.get("phone"));
             pstmt.setString(3, tripDetails.get("nid"));
             pstmt.setInt(4, Integer.parseInt(tripDetails.get("totalSeats")));
-            pstmt.setDouble(5, Double.parseDouble(tripDetails.get("price")));
+            pstmt.setDouble(5, Double.parseDouble(tripDetails.get("totalAmount")));
             pstmt.setInt(6, 1);
             pstmt.setInt(7, Integer.parseInt(tripDetails.get("id")));
             
