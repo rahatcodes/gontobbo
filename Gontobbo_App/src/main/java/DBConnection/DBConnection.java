@@ -144,12 +144,16 @@ public class DBConnection extends Utilities {
         
         Connection con = db.getConnection();
         try {
-            String query = "SELECT id FROM trip ORDER BY id DESC LIMIT 1";
+            // String query = "SELECT id FROM trip ORDER BY id DESC LIMIT 1";
+            String query = "SELECT seq FROM sqlite_sequence WHERE name = ?";
+
+
             
             PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, "trip");
             
             try(ResultSet rs = pstmt.executeQuery()) {
-                tripId = rs.getInt("id");
+                tripId = rs.getInt("seq");
             }
             
         } catch(SQLException e) {
