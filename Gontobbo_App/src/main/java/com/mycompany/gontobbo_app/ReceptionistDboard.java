@@ -167,7 +167,7 @@ public class ReceptionistDboard extends javax.swing.JFrame {
         kGradientPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 380, 10));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\icons\\bg-2.png"));
-        jLabel6.setText("jLabel6");
+        jLabel6.setText(" ");
         kGradientPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 720));
