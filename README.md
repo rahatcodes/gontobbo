@@ -74,8 +74,7 @@
 
 ## Screenshots  
 
-*Coming Soon: Illustrative screenshots of the Admin and Receptionist interfaces.*  
-
+![HomePage]([https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/rahatcodes/gontobbo/blob/main/Images/1.HomePage.png))
 ---
 
 ## Contribution  
