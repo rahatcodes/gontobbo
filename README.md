@@ -74,7 +74,7 @@
 
 ## Screenshots  
 
-![HomePage]([https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/rahatcodes/gontobbo/blob/main/Images/1.HomePage.png))
+![HomePage]([https://github.com/rahatcodes/gontobbo/blob/main/Images/1.HomePage.png])
 ---
 
 ## Contribution  
